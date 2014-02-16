@@ -1,0 +1,14 @@
+<form ng-submit="submitPost()" class="pure-form pure-form-stacked">
+
+    <fieldset>
+        <legend>Create a new post</legend>
+        <label for="title">Title</label>
+        <input ng-model="postData.title" id="title" type="text"/>
+
+        <label for="body">Title</label>
+        <textarea ng-model="postData.body" id="body"></textarea>
+    </fieldset>
+
+    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+
+</form>

@@ -1,6 +1,6 @@
 angular.module('postCtrl', [])
 
-    .controller('postController', function($scope, $http, Post) {
+    .controller('PostController', function($scope, $http, Post) {
 
         // Object to hold data for the new post form
         $scope.postData = {};
