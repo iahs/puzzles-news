@@ -1,26 +1,24 @@
 <?php
 
-class PostsTableSeeder extends Seeder
+class TweetersTableSeeder extends Seeder
 {
 
     public function run()
     {
-        DB::table('posts')->delete();
+        DB::table('tweeters')->delete();
 
-        Post::create(array(
-            'title' => 'Post 1',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, obcaecati, alias, sint, doloremque amet cupiditate explicabo nam ipsa perferendis suscipit voluptatum soluta eveniet aut doloribus culpa quia molestiae reprehenderit delectus.'
-        ));
-
-        Post::create(array(
-            'title' => 'Post 2',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, obcaecati, alias, sint, doloremque amet cupiditate explicabo nam ipsa perferendis suscipit voluptatum soluta eveniet aut doloribus culpa quia molestiae reprehenderit delectus.'
-        ));
-
-        Post::create(array(
-            'title' => 'Post 3',
-            'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, obcaecati, alias, sint, doloremque amet cupiditate explicabo nam ipsa perferendis suscipit voluptatum soluta eveniet aut doloribus culpa quia molestiae reprehenderit delectus.'
-        ));
+        if (($handle = fopen("tweeters.csv", "r")) !== FALSE) {
+            
+            while ($line = fgetcsv($handle)) {
+                Tweeter::create(array(
+                    'handle' => $line[0],
+                    'name' => $line[1],
+                    'website' => $line[2],
+                    'description' => $line[3],
+                    'image' => $line[4]
+                ));
+            }
+        }
     }
 
 }
