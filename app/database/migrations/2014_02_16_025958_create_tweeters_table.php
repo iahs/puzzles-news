@@ -15,10 +15,11 @@ class CreateTweetersTable extends Migration {
 		Schema::create('tweeters', function(Blueprint $table) {
 			$table->increments('id');
 
-			$table->text('title');
-            $table->text('subtitle');
+			$table->text('handle');
+            $table->text('name');
             $table->text('website');
-            $table->text('RSS');
+            $table->text('description');
+            $table->text('image');
 
 			$table->timestamps();
 		});
