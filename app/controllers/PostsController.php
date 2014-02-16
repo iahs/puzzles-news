@@ -9,7 +9,7 @@ class PostsController extends BaseApiController {
 	 */
 	public function index()
 	{
-        return View::make('posts.index');
+        return Post::all();
 	}
 
 	/**
