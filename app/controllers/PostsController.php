@@ -9,7 +9,7 @@ class PostsController extends BaseApiController {
 	 */
 	public function index()
 	{
-        return Post::all();
+        return Response::json(Post::all());
 	}
 
 	/**
@@ -19,7 +19,12 @@ class PostsController extends BaseApiController {
 	 */
 	public function store()
 	{
-		//
+		Post::create(array(
+            'title' => Input::json('title'),
+            'body' => Input::json('body')
+        ));
+
+        return Response::json(array('success' => true));
 	}
 
 	/**
@@ -41,7 +46,9 @@ class PostsController extends BaseApiController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Post::destroy($id);
+
+        return Response::json(array('success' => true));
 	}
 
 }

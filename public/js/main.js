@@ -1,3 +1,1 @@
-/**
- * Created by martin on 15/02/14.
- */
+var newsApp = angular.module('newsApp', ['postCtrl', 'postService']);
