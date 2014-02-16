@@ -19,12 +19,15 @@ class PostsController extends BaseApiController {
 	 */
 	public function store()
 	{
-		Post::create(array(
+		$post = Post::create(array(
             'title' => Input::json('title'),
             'body' => Input::json('body')
         ));
 
+        # TODO: add some error handling
         return Response::json(array('success' => true));
+
+
 	}
 
 	/**

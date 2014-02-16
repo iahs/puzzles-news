@@ -7,7 +7,7 @@ class TweetersTableSeeder extends Seeder
     {
         DB::table('tweeters')->delete();
 
-        if (($handle = fopen("tweeters.csv", "r")) !== FALSE) {
+        if (($handle = fopen(app_path() . "/database/seeds/tweeters.csv", "r")) !== FALSE) {
             
             while ($line = fgetcsv($handle)) {
                 Tweeter::create(array(

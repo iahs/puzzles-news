@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('PostsTableSeeder');
         $this->command->info('Posts table seeded');
+
+
+        $this->call('TweetersTableSeeder');
+        $this->command->info('Tweeters table seeded');
 	}
 
 }

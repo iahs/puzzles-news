@@ -24,6 +24,7 @@ angular.module('postCtrl', [])
 
                     Post.get()
                         .success(function(getData) {
+                            console.log('success');
                             $scope.posts = getData;
                             $scope.loading = false;
                             $state.go('posts.list');
@@ -32,6 +33,7 @@ angular.module('postCtrl', [])
 
                 })
                 .error(function(data) {
+                    // Not sure why this is necessary
                     console.log(data);
                 });
         };
