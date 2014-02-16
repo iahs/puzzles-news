@@ -12,7 +12,11 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('PostsTableSeeder');
-        $this->command->info('Posts table seeded');
+        $this->command->info('Feeds table seeded; call command:importrss to load posts');
+
+
+        $this->call('TweetersTableSeeder');
+        $this->command->info('Tweeters table seeded');
 	}
 
 }

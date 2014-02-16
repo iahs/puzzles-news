@@ -9,8 +9,29 @@ class PostsController extends BaseApiController {
 	 */
 	public function index()
 	{
-        return Response::json(Post::all());
+        $posts = Post::all();
+        return Response::json([
+            'data' => $posts->toArray()
+        ], 200);
 	}
+
+    /**
+     * Display a listing of post with id<requested.
+     *
+     * @return Response
+     */
+    public function infinite()
+    {
+        // Big default so we always get some posts
+        $newest = Input::get('newest', 0) > 0 ? Input::get('newest') : 9999999999;
+        $limit = Input::get('limit', 5);
+
+        $posts = Post::orderBy('id', 'desc')->where('id', '<', $newest)->take($limit)->get();
+
+        return Response::json([
+            'data' => $posts->toArray()
+        ], 200);
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -19,12 +40,21 @@ class PostsController extends BaseApiController {
 	 */
 	public function store()
 	{
-		Post::create(array(
-            'title' => Input::json('title'),
-            'body' => Input::json('body')
-        ));
+        $input = Input::json()->all();
+        $v = Post::validate($input);
 
-        return Response::json(array('success' => true));
+        if ( $v->passes() ) {
+            $post = Post::create($input);
+            return Response::json([
+                'data' => $post->toArray()
+            ], 201);
+
+        } else {
+            return Response::json([
+                'errors' => $v->messages()->toArray(),
+                'message' => 'Validation failed'
+             ], 400);
+        }
 	}
 
 	/**
@@ -48,7 +78,9 @@ class PostsController extends BaseApiController {
 	{
 		Post::destroy($id);
 
-        return Response::json(array('success' => true));
+        return Response::json([
+            'success' => true
+        ], 200);
 	}
 
 }

@@ -1,0 +1,23 @@
+<form ng-submit="signup()" class="pure-form pure-form-aligned">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" ng-model="currentUser.email" name="email" required>
+        </div>
+        <div class="pure-control-group">
+            <label for="first_name">First name</label>
+            <input id="first_name" type="text" ng-model="currentUser.first_name" name="first_name" required>
+        </div>
+        <div class="pure-control-group">
+            <label for="first_name">Last name</label>
+            <input id="last_name" type="text" ng-model="currentUser.last_name" name="last_name" required>
+        </div>
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" ng-model="currentUser.password" name="password" required>
+        </div>
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Sign up</button>
+        </div>
+    </fieldset>
+</form>

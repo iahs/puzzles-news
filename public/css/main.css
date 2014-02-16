@@ -1,0 +1,21 @@
+input.ng-invalid {
+    border: 1px solid red;
+}
+input.ng-valid {
+    border: 1px solid green;
+}
+
+aside {
+    background: #A51C30;
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+.center {
+    text-align: center;
+}
+
+.l-box {
+    padding: 1em;
+}
+
