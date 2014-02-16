@@ -1,6 +1,6 @@
 angular.module('postCtrl', [])
 
-    .controller('PostController', function($scope, $http, Post) {
+    .controller('PostController', function($scope, $http, $state, Post) {
 
         // Object to hold data for the new post form
         $scope.postData = {};
@@ -26,7 +26,9 @@ angular.module('postCtrl', [])
                         .success(function(getData) {
                             $scope.posts = getData;
                             $scope.loading = false;
+                            $state.go('posts.list');
                         });
+
 
                 })
                 .error(function(data) {

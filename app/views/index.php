@@ -26,8 +26,8 @@
         <div id="menu">
             <div class="pure-menu pure-menu-open">
                 <a class="pure-menu-heading" href="#">Puzzles</a>
-                <li><a ui-sref="index"">Home</a></li>
-                <li><a ui-sref="state2">About</a></li>
+                <li><a ui-sref="posts.list">List posts</a></li>
+                <li><a ui-sref="posts.new">Create post</a></li>
             </div>
         </div>
 
