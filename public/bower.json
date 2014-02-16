@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular-ui-router": "0.2.7",
-    "pure": "~0.4.2"
+    "pure": "~0.4.2",
+    "jquery": "~2.1.0"
   }
 }

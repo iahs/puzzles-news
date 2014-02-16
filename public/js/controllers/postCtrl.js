@@ -9,9 +9,9 @@ angular.module('postCtrl', [])
             .success(function(response) {
                 $scope.posts = response.data;
                 $(window).scroll(function () {
-                   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+                    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
                       $scope.infiniteLoadMore();
-                   }
+                    }
                 });
             });
 

@@ -55,20 +55,20 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
  */
 newsApp.config(function ($httpProvider) {
 
-    var interceptor = function ($q, $rootScope, $location) {
+    var interceptor = function ($q, $rootScope) {
         return {
             response: function (response) {
                 //Will only be called for HTTP up to 300
                 return response;
             },
             responseError: function (rejection) {
-
+                // Will only broadcast messages, and let the corresponding service deal with it
                 switch (rejection.status) {
                     case 401:
                         if (rejection.config.url!=='#/login')
                         {
                             $rootScope.$broadcast('auth:loginRequired');
-                            $location.path('login');
+                            break;
                         }
                         break;
                     case 403:
