@@ -3,6 +3,6 @@
 class Post extends Eloquent {
 
     # Available for mass assignment
-    protected $fillable = array('title', 'body');
+    protected $fillable = array('title', 'body', 'permalink');
 
 }
