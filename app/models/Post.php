@@ -3,7 +3,7 @@
 class Post extends Eloquent {
 
     # Available for mass assignment
-    protected $fillable = array('title', 'body');
+    protected $fillable = array('title', 'body', 'permalink');
 
     public static function validate($input) {
 
@@ -15,5 +15,5 @@ class Post extends Eloquent {
         return Validator::make($input, $rules);
 
     }
-
 }
+

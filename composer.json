@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
         "way/generators": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.*"
+        "barryvdh/laravel-ide-helper": "1.*",
+        "simplepie/simplepie": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
