@@ -3,10 +3,10 @@
     <fieldset>
         <legend>Create a new post</legend>
         <label for="title">Title</label>
-        <input ng-model="postData.title" id="title" type="text"/>
+        <input ng-model="postData.title" id="title" type="text" required/>
 
         <label for="body">Title</label>
-        <textarea ng-model="postData.body" id="body"></textarea>
+        <textarea ng-model="postData.body" id="body" required></textarea>
     </fieldset>
 
     <button type="submit" class="pure-button pure-button-primary">Submit</button>

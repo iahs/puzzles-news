@@ -5,52 +5,61 @@ angular.module('postCtrl', [])
         // Object to hold data for the new post form
         $scope.postData = {};
 
-        // Show the loading icon
-        $scope.loading = true;
-
         // Get all the posts
-        Post.get()
+        Post.infiniteLoader(0, 15)
             .success(function(data) {
                 $scope.posts = data;
-                $scope.loading = false;
             });
+
+
+        // Load more posts
+        $scope.infiniteLoadMore = function() {
+
+            // Find the oldest post in the scope
+            var minId = Number.POSITIVE_INFINITY;
+
+            for (var i=$scope.posts.length-1; i>=0; i--) {
+                var tmp = $scope.posts[i];
+                if (tmp.id < minId) minId = tmp.id;
+            }
+
+            // And load posts older than that. 15 at the time
+            Post.infiniteLoader(minId, 15)
+                .success(function(data) {
+                    for (var i=0; i<data.length; i++) {
+                        $scope.posts.push(data[i]);
+                    }
+                    
+                });
+        };
 
         // Create a new post
         $scope.submitPost = function() {
-            $scope.loading = true;
 
             Post.save($scope.postData)
                 .success(function(data) {
-
                     Post.get()
                         .success(function(getData) {
-                            console.log('success');
                             $scope.posts = getData;
-                            $scope.loading = false;
                             $state.go('posts.list');
                         });
-
-
                 })
                 .error(function(data) {
-                    // Not sure why this is necessary
                     console.log(data);
                 });
         };
 
         // Delete a post
         $scope.deletePost = function(id) {
-            $scope.loading = true;
 
             Post.destroy(id)
                 .success(function(data) {
                     Post.get()
                         .success(function(getData) {
                             $scope.posts = getData;
-                            $scope.loading = false;
                         });
                 });
-
         };
 
     });
+

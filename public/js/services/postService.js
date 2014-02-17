@@ -6,6 +6,17 @@ angular.module('postService', [])
                 return $http.get(postUrl);
             },
 
+            infiniteLoader: function(pNewest, pLimit) {
+                return $http({
+                    method: 'GET',
+                    url: '/api/posts/infinite',
+                    params: {
+                        newest: pNewest,
+                        limit: pLimit
+                    }
+                });
+            },
+
             save: function(postData) {
                 return $http({
                     method: 'POST',

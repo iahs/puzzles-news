@@ -13,6 +13,7 @@
     <![endif]-->
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="css/side-menu.css">
+        <link rel="stylesheet" href="css/main.css">
     <!--<![endif]-->
 </head>
 
@@ -40,6 +41,7 @@
     <script src="js/ui.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
     <script src="js/main.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
