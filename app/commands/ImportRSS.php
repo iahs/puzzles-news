@@ -98,7 +98,7 @@ class ImportRSS extends Command {
 			$post = Post::create(array(
 	            'title' 	=> $item->get_title(),
 	            'permalink' => $item->get_permalink(),
-	            'body'		=> $item->get_content()
+	            'body'		=> strip_tags($item->get_content())
 	        ));
 	        //TODO: add other useful fields, like source, content, and date.
 		}
