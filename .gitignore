@@ -1,5 +1,9 @@
+*.swp
+
 /bootstrap/compiled.php
 /vendor
+/app/config/database.php
+
 composer.phar
 composer.lock
 .env.local.php
