@@ -29,7 +29,8 @@ class CreateRssTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+        //
+        Schema::drop('rss_feeds');
 	}
 
 }

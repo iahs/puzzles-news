@@ -14,12 +14,11 @@ class MergePostsTable extends Migration {
 	{
 		Schema::table('posts', function($table)
 		{
-          
-            $table->integer('author_id');
             $table->boolean('media');
             $table->integer('feed_id');
+            $table->integer('author_id');
             $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('feed_id')->references('id')->on('rss');
+            $table->foreign('feed_id')->references('id')->on('rss_feeds');
 		});
 	}
 
@@ -30,7 +29,14 @@ class MergePostsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+        //
+        Schema::table('posts', function($table)
+        {
+            $table->dropForeign('feed_id');
+            $table->dropForeign('author_id');
+            $table->dropColumn('media');
+            $table->dropColumn('author_id');
+        });
 	}
 
 }

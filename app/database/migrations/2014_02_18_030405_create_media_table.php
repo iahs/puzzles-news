@@ -18,7 +18,7 @@ class CreateMediaTable extends Migration {
             $table->integer('article_id');
             $table->text('type');
             $table->text('permalink');
-            $table->timestamp();
+            $table->timestamps();
 		});
 	}
 
@@ -29,7 +29,7 @@ class CreateMediaTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+        Schema::dropIfExists('media');
 	}
 
 }
