@@ -18,6 +18,7 @@ class CreateMediaTable extends Migration {
 
             $table->text('type');
             $table->text('permalink');
+            $table->primary('article_id');
 		});
 	}
 

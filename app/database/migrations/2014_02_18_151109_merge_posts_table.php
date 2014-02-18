@@ -16,8 +16,10 @@ class MergePostsTable extends Migration {
 		{
 		    $table->integer('author_id');
             $table->boolean('media');
+            $table->integer('feed_id');
             $table->primary('id');
             $table->foreign('author_id')->references('author_id')->on('authors');
+            $table->foreign('feed_id')->references('feed_id')->on('rss');
 		});
 	}
 
