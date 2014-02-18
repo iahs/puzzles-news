@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MergePostsTable extends Migration {
+class UpdateAuthorsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,10 @@ class MergePostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('posts', function($table)
-		{
-		    $table->integer('author_id');
-            $table->boolean('media');
-            $table->primary('id');
-            $table->foreign('author_id')->references('author_id')->on('authors');
+		//
+		Schema::table('authors', function(Blueprint $table) {
+			$table->primary('author_id');
+			
 		});
 	}
 
