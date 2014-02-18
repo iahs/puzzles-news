@@ -13,6 +13,15 @@ class CreateArticlesTable extends Migration {
 	public function up()
 	{
 		//
+		Schema::create('articles', function(Blueprint $table) {
+			$table->increments('id');
+			$table->integer('author_id');
+			$table->string('title');
+            $table->longText('body');
+			$table->timestamps();
+			$table->string('permalink');
+			$table->boolean('media');
+		});
 	}
 
 	/**

@@ -13,6 +13,12 @@ class CreateMediaTable extends Migration {
 	public function up()
 	{
 		//
+		Schema::create('media', function(Blueprint $table) {
+			$table->increments('article_id');
+
+            $table->text('type');
+            $table->text('permalink');
+		});
 	}
 
 	/**
