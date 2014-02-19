@@ -27,8 +27,6 @@ class PostsController extends BaseApiController {
         return Response::json($posts);
     }
 
-
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -48,7 +46,6 @@ class PostsController extends BaseApiController {
                 'errors' => $v->messages()->toJson()), 400
             );
         }
-
 	}
 
 	/**
