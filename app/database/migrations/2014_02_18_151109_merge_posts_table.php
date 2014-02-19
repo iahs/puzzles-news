@@ -12,11 +12,10 @@ class MergePostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('posts', function($table)
+		Schema::table('posts', function(Blueprint $table)
 		{
             $table->integer('feed_id');
             $table->integer('author_id');
-            $table->foreign('feed_id')->references('id')->on('rss_feeds');
 		});
 	}
 
