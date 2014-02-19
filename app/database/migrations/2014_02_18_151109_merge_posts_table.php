@@ -14,7 +14,6 @@ class MergePostsTable extends Migration {
 	{
 		Schema::table('posts', function($table)
 		{
-            $table->boolean('media');
             $table->integer('feed_id');
             $table->integer('author_id');
             $table->foreign('feed_id')->references('id')->on('rss_feeds');
@@ -32,7 +31,7 @@ class MergePostsTable extends Migration {
         Schema::table('posts', function($table)
         {
             $table->dropForeign('feed_id');
-            $table->dropColumn('media');
+            $table->dropColumn('author_id');
         });
 	}
 
