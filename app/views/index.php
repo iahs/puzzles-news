@@ -13,6 +13,7 @@
     <![endif]-->
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="css/side-menu.css">
+        <link rel="stylesheet" href="css/side-panel-twitter.css">
         <link rel="stylesheet" href="css/main.css">
     <!--<![endif]-->
 </head>
@@ -29,11 +30,15 @@
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
                 <li><a ui-sref="posts.new">Create post</a></li>
+                <li><a ui-sref="twitterfeed">Twitter</a></li>
             </div>
         </div>
 
         <div id="main" ui-view>
+            <div class = "container">
+                <div class = "side-panel-twitter">
 
+                </div>
 
         </div>
     </div>
@@ -45,6 +50,7 @@
     <script src="js/main.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
+    <script src="js/controllers/twitter.js"></script>
 
 </body>
 </html>

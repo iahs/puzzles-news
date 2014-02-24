@@ -21,4 +21,10 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/posts.new.html",
             controller: 'PostController'
         })
+        .state('twitterfeed', {
+            url: "/twitterfeed",
+            templateUrl: "partials/twitterfeed.html",
+        })
 });
+
+
