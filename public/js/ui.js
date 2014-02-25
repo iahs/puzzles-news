@@ -1,5 +1,5 @@
 (function (window, document) {
-
+    // TODO: Convert to angular code
     var layout   = document.getElementById('layout'),
         menu     = document.getElementById('menu'),
         menuLink = document.getElementById('menuLink');

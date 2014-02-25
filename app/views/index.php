@@ -24,17 +24,17 @@
             <!-- Hamburger icon -->
             <span></span>
         </a>
-        <div id="menu">
+        <div id="menu" ng-controller="MenuController">
             <div class="pure-menu pure-menu-open">
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
                 <li><a ui-sref="posts.new">Create post</a></li>
+                <li><a ui-sref="user.login">Login</a></li>
+                <li>{{ user | json }}</li>
             </div>
         </div>
 
         <div id="main" ui-view>
-
-
         </div>
     </div>
 
@@ -44,7 +44,10 @@
 
     <script src="js/main.js"></script>
     <script src="js/services/postService.js"></script>
+    <script src="js/services/authService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
+    <script src="js/controllers/userCtrl.js"></script>
+    <script src="js/controllers/menuCtrl.js"></script>
 
 </body>
 </html>

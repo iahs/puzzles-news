@@ -1,0 +1,25 @@
+<!-- <form class="pure-form pure-form-aligned" action="/session" method="post"> -->
+<form class="pure-form pure-form-aligned" ng-submit="login()">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" ng-model="credentials.email" name="email" required>
+        </div>
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" ng-model="credentials.password" name="password" required>
+        </div>
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Login</button>
+        </div>
+    </fieldset>
+</form>
+
+        <p>
+            <a href="/session/cs50login" class="pure-button">Log in with cs50 id</a>
+            <a href="#" class="pure-button">Register</a>
+            <button ng-click="logout()" class="pure-button">Log out</button>
+        </p>
+
+
+<p>{{ status }}</p>
