@@ -9,7 +9,10 @@ class PostsController extends BaseApiController {
 	 */
 	public function index()
 	{
-        return Response::json(Post::all());
+        $posts = Post::all();
+        return Response::json([
+            'data' => $posts->toArray()
+        ], 200);
 	}
 
     /**
@@ -24,10 +27,11 @@ class PostsController extends BaseApiController {
         $limit = Input::get('limit', 5);
 
         $posts = Post::orderBy('id', 'desc')->where('id', '<', $newest)->take($limit)->get();
-        return Response::json($posts);
+
+        return Response::json([
+            'data' => $posts->toArray()
+        ], 200);
     }
-
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -40,15 +44,17 @@ class PostsController extends BaseApiController {
         $v = Post::validate($input);
 
         if ( $v->passes() ) {
-            Post::create($input);
-            return Response::json(array('success' => true), 201);
-        } else {
-            return Response::json(array(
-                'success' => false,
-                'errors' => $v->messages()->toJson()), 400
-            );
-        }
+            $post = Post::create($input);
+            return Response::json([
+                'data' => $post->toArray()
+            ], 201);
 
+        } else {
+            return Response::json([
+                'errors' => $v->messages()->toArray(),
+                'message' => 'Validation failed'
+             ], 400);
+        }
 	}
 
 	/**
@@ -72,7 +78,9 @@ class PostsController extends BaseApiController {
 	{
 		Post::destroy($id);
 
-        return Response::json(array('success' => true));
+        return Response::json([
+            'success' => true
+        ], 200);
 	}
 
 }

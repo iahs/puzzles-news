@@ -79,3 +79,14 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The CS50 ID library
+|--------------------------------------------------------------------------
+|
+| For authenticating Harvard affiliates.
+|
+*/
+require app_path().'/libraries/CS50/cs50.php';
+
