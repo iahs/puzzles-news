@@ -1,6 +1,6 @@
-var newsApp = angular.module('newsApp', ['ui.router', 'postCtrl','userCtrl', 'menuCtrl', 'postService', 'authService']);
+var newsApp = angular.module('newsApp', ['ui.router', 'postCtrl','userCtrl', 'menuCtrl', 'postService', 'authService', 'twitterFeed']);
 
-newsApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+newsApp.config(function($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to home page
     $urlRouterProvider.otherwise("posts");
@@ -35,12 +35,17 @@ newsApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
             controller:"UserController",
             templateUrl: "partials/user.signup.html"
         })
+        .state('twitterfeed', {
+            url: "/twitterfeed",
+            templateUrl: "partials/twitterfeed.html",
+        })
 });
 
 /*
  * Catch 401 error messages from the server,
  * and check for API codes indicating that the user is
  * unauthenticated or unauthorized to view the page.
+ * See the auth service for explanation of broadcast messages
  *
  */
 newsApp.config(function ($httpProvider) {
@@ -79,4 +84,3 @@ newsApp.config(function ($httpProvider) {
     }
     $httpProvider.interceptors.push(interceptor);
 });
-
