@@ -89,6 +89,8 @@ class ImportRSS extends Command {
 			        'permalink' => 'required|url|unique:posts'
 			    )
 			);
+			$body = strip_tags($item->get_content());
+
 			// Presumably, the feed is invalid or we've hit old posts. Either way, we're
 			//   done with this feed
 			if ($validator->fails())
@@ -99,6 +101,20 @@ class ImportRSS extends Command {
 	            'body'		=> strip_tags($item->get_content()),
 	        ));
 	        $post->rss_feed()->associate($parent);
+
+			$response = $alchemyapi->concepts('text',$body, null);
+
+			if ($response['status'] == 'OK') {
+				foreach ($response['concepts'] as $concept) {
+					echo 'concept: ', $concept['text'], PHP_EOL;
+					echo 'relevance: ', $concept['relevance'], PHP_EOL;
+					$tag = Tag::firstOrCreate(array('name' => $concept['text']));
+					$post->tag()->associate($tag);
+				}
+			} else {
+				echo 'Error in the concept tagging call: ', $response['statusInfo'];
+			}
+
 	        $post->save();
 	        //TODO: add other useful fields, like source, content, and date.
 		}
