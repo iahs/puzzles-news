@@ -23,7 +23,7 @@ class Post extends Eloquent {
     
     public function tag()
     {
-        return $this->hasMany('Tag','tag_post'));
+        return $this->hasMany('Tag','tag_post');
     }
 }
 
