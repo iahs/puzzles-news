@@ -5,6 +5,7 @@ angular.module('postCtrl', [])
 
         // Object to hold data for the new post form
         $scope.postData = {};
+        var infiniteLoading = false;
 
         // Get all the posts
         Post.infiniteLoader(0, 15)
@@ -15,14 +16,18 @@ angular.module('postCtrl', [])
                     $scope.posts[i].pos = pos++;
                 }
                 $(window).scroll(function () {
-                   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+                    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
                       $scope.infiniteLoadMore();
-                   }
+                    }
                 });
             });
 
         // Load more posts
         $scope.infiniteLoadMore = function() {
+            // Return if already in the process of loading more posts
+            if (infiniteLoading) return;
+            infiniteLoading = true;
+
             // Find the oldest post in the scope
             var minId = Number.POSITIVE_INFINITY;
 
@@ -40,6 +45,7 @@ angular.module('postCtrl', [])
                         console.log(pos)
                         $scope.posts.push(response.data[i]);
                     }
+                    infiniteLoading = false;
                 });
         };
 
