@@ -2,6 +2,7 @@ angular.module('postCtrl', [])
     .controller('PostController', function($scope, $http, $state, Post, $window) {
         // Object to hold data for the new post form
         $scope.postData = {};
+        var infiniteLoading = false;
 
         // Get all the posts
         Post.infiniteLoader(0, 15)
@@ -16,6 +17,10 @@ angular.module('postCtrl', [])
 
         // Load more posts
         $scope.infiniteLoadMore = function() {
+            // Return if already in the process of loading more posts
+            if (infiniteLoading) return;
+            infiniteLoading = true;
+
             // Find the oldest post in the scope
             var minId = Number.POSITIVE_INFINITY;
 
@@ -30,6 +35,7 @@ angular.module('postCtrl', [])
                     for (var i=0; i<response.data.length; i++) {
                         $scope.posts.push(response.data[i]);
                     }
+                    infiniteLoading = false;
                 });
         };
 
