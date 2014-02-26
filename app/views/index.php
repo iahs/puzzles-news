@@ -44,6 +44,7 @@
 
 
     <script src="js/ui.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
@@ -54,7 +55,6 @@
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/twitter.js"></script>
-    <script src="jquery-1.11.0.min.js"></script>
 
 </body>
 </html>
