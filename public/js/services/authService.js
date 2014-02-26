@@ -23,6 +23,12 @@ angular.module('authService', [])
          */
         var auth = {user: null};
 
+        // Listen for the http interceptor
+        $rootScope.$on('auth:loginRequired', function () {
+            auth.user = null;
+            $state.go('user.login');
+        })
+
         /*
          * The getAuth function queries the server for current session data
          * @return promise for auth object
