@@ -1,5 +1,8 @@
 angular.module('postCtrl', [])
     .controller('PostController', function($scope, $http, $state, Post, $window) {
+        // CONFIG: max post length
+        $scope.maxPostLength = 320;
+
         // Object to hold data for the new post form
         $scope.postData = {};
 
@@ -7,6 +10,10 @@ angular.module('postCtrl', [])
         Post.infiniteLoader(0, 15)
             .success(function(response) {
                 $scope.posts = response.data;
+                var pos = 0;
+                for (var i=0; i<$scope.posts.length; i++) {
+                    $scope.posts[i].pos = pos++;
+                }
                 $(window).scroll(function () {
                    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
                       $scope.infiniteLoadMore();
@@ -27,7 +34,10 @@ angular.module('postCtrl', [])
             // And load posts older than that. 15 at the time
             Post.infiniteLoader(minId, 15)
                 .success(function(response) {
+                    var pos = $scope.posts.length;
                     for (var i=0; i<response.data.length; i++) {
+                        response.data[i].pos = pos++;
+                        console.log(pos)
                         $scope.posts.push(response.data[i]);
                     }
                 });
@@ -58,4 +68,56 @@ angular.module('postCtrl', [])
                         });
                 });
         };
+
+        // Expand post
+        $scope.expandPost = function(pos) {
+            $scope.posts[$scope.posts[pos].pos].expanded = true;
+            console.log('expanded post')
+            //TODO: track expand
+        };
     })
+/**
+ * Truncate Filter
+ * @Param text
+ * @Param length, default is 10
+ * @Param end, default is "..."
+ * @return string
+ * from http://jsfiddle.net/tUyyx/
+ */
+    .filter('truncate', function () {
+        return function (text, length, end) {
+            if (isNaN(length))
+                length = 10;
+
+            if (end === undefined)
+                end = "...";
+
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, text.lastIndexOf(' ',length-end.length)) + end;
+            }
+
+        };
+    })
+    .filter('unescape', function () {
+        return function (text) {
+            return text.replace(/&[rlds]{2}quo;/g, '"').replace(/&nbsp;/g,' ').replace(/&hellip;/g,' ').replace(/&[a-z]{1,5};/g,'');
+        };
+    });
+
+/**
+ * Usage
+ *
+ * var myText = "This is an example.";
+ *
+ * {{myText|Truncate}}
+ * {{myText|Truncate:5}}
+ * {{myText|Truncate:25:" ->"}}
+ * Output
+ * "This is..."
+ * "Th..."
+ * "This is an e ->"
+ *
+ */
