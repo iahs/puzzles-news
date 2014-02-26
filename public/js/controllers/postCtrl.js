@@ -7,7 +7,12 @@ angular.module('postCtrl', [])
         Post.infiniteLoader(0, 15)
             .success(function(response) {
                 $scope.posts = response.data;
-        });
+                $(window).scroll(function () {
+                   if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
+                      $scope.infiniteLoadMore();
+                   }
+                });
+            });
 
         // Load more posts
         $scope.infiniteLoadMore = function() {
@@ -53,5 +58,4 @@ angular.module('postCtrl', [])
                         });
                 });
         };
-    });
-
+    })
