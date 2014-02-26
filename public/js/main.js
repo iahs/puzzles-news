@@ -35,6 +35,11 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             controller:"UserController",
             templateUrl: "partials/user.signup.html"
         })
+        .state('user.edit', {
+            url: "/profile",
+            controller:"UserController",
+            templateUrl: "partials/user.edit.html"
+        })
         .state('twitterfeed', {
             url: "/twitterfeed",
             templateUrl: "partials/twitterfeed.html",

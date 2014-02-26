@@ -36,4 +36,25 @@ class UsersController extends BaseApiController {
         }
     }
 
+    public function update()
+    {
+        $user_data = Input::json('data');
+        if( ! $user_data || ! $user_data['id'] || ! Auth::check()){
+            return Response::json([
+                'errors' => 'Invalid data or not authorized',
+                'message' => 'You are not allowed to perfom this operation'
+            ]);
+        }
+
+        $v = User::validate($user_data);
+
+        if ($v->passes()) {
+            $user = Auth::user();
+            $user->fill($user_data);
+            $user->save();
+        }
+
+
+    }
+
 }
