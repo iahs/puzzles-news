@@ -37,12 +37,10 @@ class ImportRSS extends Command {
 	 */
 	public function fire()
 	{
-		$lines = file('app/config/feeds.db');
-		if(!$lines) return $this->error('No RSS feeds found in app/config/feeds.db');
-		foreach ($lines as $line)
+		foreach (Rss_feed::all() as $feed)
 		{
-			$this->info('Importing items from ' . $line);
-			$this->importFeed($line);
+			$this->info('Importing items from ' . $feed->title);
+			$this->importFeed($feed);
 		}
 		$this->info('Done importing feeds');
 	}
@@ -71,10 +69,10 @@ class ImportRSS extends Command {
 	 * Import entries from feed to database
 	 * @return none
 	 */
-	private function importFeed($url)
+	private function importFeed($parent)
 	{
 		$feed = new SimplePie();
-		$feed->set_feed_url($url);
+		$feed->set_feed_url($parent->permalink);
 		$feed->enable_cache(false);
 		$feed->init();
 
@@ -95,11 +93,13 @@ class ImportRSS extends Command {
 			//   done with this feed
 			if ($validator->fails())
 				return;
-			$post = Post::create(array(
+			$post = new Post(array(
 	            'title' 	=> $item->get_title(),
 	            'permalink' => $item->get_permalink(),
-	            'body'		=> strip_tags($item->get_content())
+	            'body'		=> strip_tags($item->get_content()),
 	        ));
+	        $post->rss_feed()->associate($parent);
+	        $post->save();
 	        //TODO: add other useful fields, like source, content, and date.
 		}
 	}

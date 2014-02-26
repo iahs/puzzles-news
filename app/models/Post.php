@@ -15,5 +15,10 @@ class Post extends Eloquent {
         return Validator::make($input, $rules);
 
     }
+
+    public function rss_feed()
+    {
+        return $this->belongsTo('Rss_feed');
+    }
 }
 

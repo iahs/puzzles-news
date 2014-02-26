@@ -54,6 +54,7 @@
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/twitter.js"></script>
+    <script src="jquery-1.11.0.min.js"></script>
 
 </body>
 </html>
