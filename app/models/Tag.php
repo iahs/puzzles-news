@@ -5,7 +5,7 @@ class Tag extends Eloquent {
 
 	public static $rules = array();
 
-    public function post()
+    public function posts()
     {
         return $this->belongsToMany('Post','tag_post');
     }

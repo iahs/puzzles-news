@@ -20,10 +20,10 @@ class Post extends Eloquent {
     {
         return $this->belongsTo('Rss_feed');
     }
-    
-    public function tag()
+
+    public function tags()
     {
-        return $this->hasMany('Tag','tag_post');
+        return $this->hasMany('Tag');
     }
 }
 
