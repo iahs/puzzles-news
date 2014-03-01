@@ -38,7 +38,7 @@ class ImportRSS extends Command {
 	 */
 	public function fire()
 	{
-		foreach (Rss_feed::all() as $feed)
+		foreach (RssFeed::all() as $feed)
 		{
 			$this->info('Importing items from ' . $feed->title);
 			$this->importFeed($feed);

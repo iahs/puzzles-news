@@ -36,7 +36,7 @@ class PostsTableSeeder extends Seeder
               array('title' => 'The Triple Helix','website' => 'http://thetriplehelix.org/','permalink' => 'http://thetriplehelix.org/feeds/features')
             ) as $item)
         {
-            Rss_feed::create($item);
+            RssFeed::create($item);
         }
     }
 

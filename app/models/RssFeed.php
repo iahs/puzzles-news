@@ -1,6 +1,6 @@
 <?php
 
-class Rss_feed extends Eloquent {
+class RssFeed extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array();
