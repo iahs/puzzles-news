@@ -36,9 +36,22 @@
             </div>
         </div>
 
-        <div id="main" ui-view>
+            <div id="main" ui-view>
 
-        </div>
+            </div>
+            <!--
+            remember to add pure-g-r grid and size to main when adding sidebar
+            <div id="sidebar" ng-controller="TweetController" class="pure-u-1-5 pure-hidden-phone">
+
+                <ul>
+                    <li ng-repeat="tweet in tweets">
+                        {{ tweet.content }}
+                    </li>
+                    <button ng-click="addTweet()">Add tweet</button>
+                </ul>
+
+            </div>
+            -->
 
     </div>
 
@@ -54,6 +67,7 @@
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
+    <script src="js/controllers/tweetCtrl.js"></script>
     <script src="js/controllers/twitter.js"></script>
 
 </body>

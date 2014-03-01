@@ -1,4 +1,4 @@
-var newsApp = angular.module('newsApp', ['ui.router', 'postCtrl','userCtrl', 'menuCtrl', 'postService', 'authService', 'twitterFeed']);
+var newsApp = angular.module('newsApp', ['ui.router', 'postCtrl','userCtrl', 'menuCtrl', 'postService', 'authService', 'twitterFeed', 'tweetCtrl']);
 
 newsApp.config(function($stateProvider, $urlRouterProvider) {
     //

@@ -4,6 +4,7 @@ angular.module('menuCtrl', [])
         Auth.getAuth().then(function (auth) {
             $scope.auth = auth;
         });
+
     });
 
 
