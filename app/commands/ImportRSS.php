@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+include(app_path().'/libraries/alchemyapi.php');
 
 class ImportRSS extends Command {
 
@@ -71,6 +72,8 @@ class ImportRSS extends Command {
 	 */
 	private function importFeed($parent)
 	{
+		$alchemyapi = new AlchemyAPI();
+
 		$feed = new SimplePie();
 		$feed->set_feed_url($parent->permalink);
 		$feed->enable_cache(false);
@@ -89,6 +92,8 @@ class ImportRSS extends Command {
 			        'permalink' => 'required|url|unique:posts'
 			    )
 			);
+			$body = strip_tags($item->get_content());
+
 			// Presumably, the feed is invalid or we've hit old posts. Either way, we're
 			//   done with this feed
 			if ($validator->fails())
@@ -100,6 +105,18 @@ class ImportRSS extends Command {
 	        ));
 	        $post->rss_feed()->associate($parent);
 	        $post->save();
+
+			$response = $alchemyapi->concepts('text',$body, null);
+			if ($response['status'] == 'OK') {
+				foreach ($response['concepts'] as $concept) {
+					echo 'concept: ', $concept['text'], PHP_EOL;
+					echo 'relevance: ', $concept['relevance'], PHP_EOL;
+					$tag = Tag::firstOrCreate(array('name' => $concept['text']));
+					$tag->posts()->attach($post->id);
+				}
+			} else {
+				echo 'Error in the concept tagging call: ', $response['statusInfo'];
+			}
 	        //TODO: add other useful fields, like source, content, and date.
 		}
 	}
