@@ -1,6 +1,18 @@
 <?php
 
+use Helpers\Transformers\PostTransformer;
+
 class PostsController extends BaseApiController {
+
+    /**
+     * @var Acme\Transformers\PostTransformerPostTransformer
+     */
+    protected $postTransformer;
+
+    function __construct(PostTransformer $postTransformer)
+    {
+        $this->postTransformer = $postTransformer;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -82,5 +94,17 @@ class PostsController extends BaseApiController {
             'success' => true
         ], 200);
 	}
+
+    public function search()
+    {
+        $query = Input::get('query');
+
+        $posts = Post::whereRaw(
+            "MATCH(body) AGAINST(?)",
+            array($query)
+        )->limit(50)->get();
+
+        return $posts;
+    }
 
 }

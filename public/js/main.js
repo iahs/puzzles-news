@@ -1,4 +1,15 @@
-var newsApp = angular.module('newsApp', ['ui.router', 'postCtrl','userCtrl', 'menuCtrl', 'postService', 'authService', 'twitterFeed', 'tweetCtrl']);
+var newsApp = angular.module('newsApp', [
+    'ui.router',
+    'postCtrl',
+    'userCtrl',
+    'menuCtrl',
+    'searchCtrl',
+    'postService',
+    'authService',
+    'twitterFeed',
+    'tweetCtrl',
+    'newsAppFilters'
+]);
 
 newsApp.config(function($stateProvider, $urlRouterProvider) {
     //
@@ -20,6 +31,11 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/posts/new",
             templateUrl: "partials/posts.new.html",
             controller: 'PostController'
+        })
+        .state('search', {
+            url: "/search",
+            templateUrl: "partials/search.html",
+            controller: 'SearchController'
         })
         .state('user', {
             abstract: true,

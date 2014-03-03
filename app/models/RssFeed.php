@@ -10,5 +10,6 @@ class RssFeed extends Eloquent {
     public function post()
     {
         $this->hasMany('Post');
+        $this->belongsTo('Tag');
     }
 }
