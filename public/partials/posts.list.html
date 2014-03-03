@@ -1,6 +1,10 @@
 <div ng-repeat="post in posts" id="post-{{ post.id }}">
     <h3>{{ post.title }}</h3>
-    <p ng-hide="post.expanded">{{ post.body | unescape | truncate:maxPostLength}}<a href="#" ng-click="expandPost(post.pos)" ng-if="post.body.length > maxPostLength" class="text-muted">Expand</a></p>
-    <p ng-show="post.expanded">{{ post.body | unescape}}</p>
+    <div ng-hide="post.expanded" ng-click="expandPost(post.pos)" class="truncated-post" slide-toggle="#full-post-{{post.id}}">
+        <p>{{ post.body | unescape | truncate:maxPostLength}}<i ng-if="post.body.length > maxPostLength">Click to expand</i></p>
+    </div>
+    <div id="full-post-{{post.id}}" class="slideable">
+        <p>{{ post.body | unescape}}</p>
+    </div>
 </div>
 

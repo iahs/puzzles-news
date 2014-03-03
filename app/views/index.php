@@ -64,6 +64,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
