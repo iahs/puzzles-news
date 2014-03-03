@@ -79,6 +79,8 @@ class ImportRSS extends Command {
 		$feed->enable_cache(false);
 		$feed->init();
 
+		$postCounter = 0;
+
 		foreach ($feed->get_items() as $item)
 		{
 			// Enforce uniqueness and make sure the feed is valid
@@ -103,8 +105,9 @@ class ImportRSS extends Command {
 	            'permalink' => $item->get_permalink(),
 	            'body'		=> strip_tags($item->get_content()),
 	        ));
-	        $post->rss_feed()->associate($parent);
+	        $post->rssFeed()->associate($parent);
 	        $post->save();
+	        $postCounter++;
 
 			$response = $alchemyapi->concepts('text',$body, null);
 			if ($response['status'] == 'OK') {
@@ -112,13 +115,14 @@ class ImportRSS extends Command {
 					echo 'concept: ', $concept['text'], PHP_EOL;
 					echo 'relevance: ', $concept['relevance'], PHP_EOL;
 					$tag = Tag::firstOrCreate(array('name' => $concept['text']));
-					$tag->posts()->attach($post->id);
+					$tag->posts()->attach($post->id,array('relevance'=>$concept['relevance']));
 				}
 			} else {
 				echo 'Error in the concept tagging call: ', $response['statusInfo'];
 			}
 	        //TODO: add other useful fields, like source, content, and date.
 		}
+		echo "Imported $postCounter posts\n";
 	}
 
 }

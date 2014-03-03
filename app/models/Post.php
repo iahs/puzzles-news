@@ -16,9 +16,9 @@ class Post extends Eloquent {
 
     }
 
-    public function rss_feed()
+    public function rssFeed()
     {
-        return $this->belongsTo('Rss_feed');
+        return $this->belongsTo('RssFeed');
     }
 
     public function tags()
