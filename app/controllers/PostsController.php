@@ -105,9 +105,11 @@ class PostsController extends BaseApiController {
             array($query)
         )->limit(50)->get();
 
+
         return Response::json([
           'data' => $this->postTransformer->transformCollection($posts->toArray())
         ]);
+
     }
 
 }

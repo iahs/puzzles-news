@@ -19,14 +19,14 @@ class Post extends Eloquent {
 
     }
 
-    public function rss_feed()
+    public function rssFeed()
     {
         return $this->belongsTo('RssFeed');
     }
 
     public function tags()
     {
-        return $this->belongsToMany('Tag','tag_post');
+        return $this->belongsToMany('Tag','tag_post')->withPivot('relevance');
     }
 }
 

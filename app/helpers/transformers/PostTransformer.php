@@ -1,7 +1,6 @@
 <?php namespace Helpers\Transformers;
 
 class PostTransformer extends Transformer {
-
     protected $tagTransformer;
 
     function __construct(TagTransformer $tagTransformer)
