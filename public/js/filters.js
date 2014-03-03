@@ -20,7 +20,10 @@ angular.module('newsAppFilters', [])
                 return text;
             }
             else {
-                return String(text).substring(0, text.lastIndexOf(' ',length-end.length)) + end;
+                return String(text)
+                    .substring(0, text.lastIndexOf(' ',length-end.length))
+                    .replace(/\W*$/,'')
+                    + end;
             }
 
         };
