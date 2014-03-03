@@ -5,6 +5,9 @@ class Post extends Eloquent {
     # Available for mass assignment
     protected $fillable = array('title', 'body', 'permalink');
 
+    # Load tags
+    protected $with = array('tags');
+
     public static function validate($input) {
 
         $rules = array(
@@ -18,12 +21,12 @@ class Post extends Eloquent {
 
     public function rss_feed()
     {
-        return $this->belongsTo('Rss_feed');
+        return $this->belongsTo('RssFeed');
     }
 
     public function tags()
     {
-        return $this->hasMany('Tag');
+        return $this->belongsToMany('Tag','tag_post');
     }
 }
 
