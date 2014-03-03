@@ -19,3 +19,6 @@ aside {
     padding: 1em;
 }
 
+.truncated-post:hover {
+    background: #EEE;
+}

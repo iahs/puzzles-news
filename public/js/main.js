@@ -8,7 +8,8 @@ var newsApp = angular.module('newsApp', [
     'authService',
     'twitterFeed',
     'tweetCtrl',
-    'newsAppFilters'
+    'newsAppFilters',
+    'angularSlideables'
 ]);
 
 newsApp.config(function($stateProvider, $urlRouterProvider) {

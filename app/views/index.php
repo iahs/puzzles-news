@@ -37,6 +37,7 @@
             </div>
         </div>
 
+
         <div class="pure-g">
             <div id="main" ui-view class="pure-u-3-4">
 
@@ -53,6 +54,7 @@
 
             </div>
         </div>
+
             
 
     </div>
@@ -65,6 +67,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
