@@ -88,5 +88,5 @@ require app_path().'/filters.php';
 | For authenticating Harvard affiliates.
 |
 */
-require app_path().'/libraries/CS50/cs50.php';
+require app_path().'/libraries/CS50/CS50.php';
 
