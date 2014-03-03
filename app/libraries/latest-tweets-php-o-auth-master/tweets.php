@@ -46,14 +46,14 @@
 	// Twitter keys (You'll need to visit https://dev.twitter.com and register to get these.
 	$consumerkey         = "";
 	$consumersecret      = "";
-	$accesstoken         = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
-	$accesstokensecret   = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	$accesstoken         = "";
+	$accesstokensecret   = "";
 
 	// Session start
 	session_start(); 
 	
 	// Set timezone. (Modify to match your timezone) If you need help with this, you can find it here. (http://php.net/manual/en/timezones.php)
-	date_default_timezone_set('Europe/London');
+	date_default_timezone_set('America/New_York');
 	
 	// Require TwitterOAuth files. (Downloadable from : https://github.com/abraham/twitteroauth)
 	require_once("twitteroauth/twitteroauth/twitteroauth.php");
