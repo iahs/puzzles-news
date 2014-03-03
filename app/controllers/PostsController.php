@@ -1,6 +1,7 @@
 <?php
 
 use Helpers\Transformers\PostTransformer;
+use Illuminate\Support\Facades\Response;
 
 class PostsController extends BaseApiController {
 
@@ -104,7 +105,9 @@ class PostsController extends BaseApiController {
             array($query)
         )->limit(50)->get();
 
-        return $posts;
+        return Response::json([
+          'data' => $this->postTransformer->transformCollection($posts->toArray())
+        ]);
     }
 
 }
