@@ -37,11 +37,10 @@
             </div>
         </div>
 
-            <div id="main" ui-view>
+            <div id="main" ui-view class="pure-u-4-5">
 
             </div>
-            <!--
-            remember to add pure-g-r grid and size to main when adding sidebar
+            
             <div id="sidebar" ng-controller="TweetController" class="pure-u-1-5 pure-hidden-phone">
 
                 <ul>
@@ -52,7 +51,7 @@
                 </ul>
 
             </div>
-            -->
+            
 
     </div>
 

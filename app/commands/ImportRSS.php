@@ -107,6 +107,7 @@ class ImportRSS extends Command {
 	        ));
 	        $post->rssFeed()->associate($parent);
 	        $post->save();
+
 	        $postCounter++;
 
 			$response = $alchemyapi->concepts('text',$body, null);

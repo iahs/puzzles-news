@@ -26,7 +26,7 @@ class Post extends Eloquent {
 
     public function tags()
     {
-        return $this->belongsToMany('Tag','tag_post');
+        return $this->belongsToMany('Tag','tag_post')->withPivot('relevance');
     }
 }
 

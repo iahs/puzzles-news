@@ -8,9 +8,8 @@ angular.module('searchCtrl', [])
                 method: "GET",
                 params: {query: $scope.search.query}
             }).success(function (response) {
-                $scope.searchResults = response.length>0 ? response : [{title: "No matches"}];
+                $scope.searchResults = response.data && response.data.length>0 ? response.data : [{title: "No matches"}];
             })
         };
-
 
     })
