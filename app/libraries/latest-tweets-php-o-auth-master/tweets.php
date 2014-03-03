@@ -63,7 +63,7 @@
 	
 	// Function to display the latest tweets.
 	function display_latest_tweets(
-		
+
 		// Function parameters.
 		$twitter_user_id,
 		$cache_file          = './tweets.txt',  // Change this to the path of your cache file. (Default : ./tweets.txt)

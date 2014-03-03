@@ -37,11 +37,12 @@
             </div>
         </div>
 
-            <div id="main" ui-view class="pure-u-4-5">
+        <div class="pure-g">
+            <div id="main" ui-view class="pure-u-3-4">
 
             </div>
             
-            <div id="sidebar" ng-controller="TweetController" class="pure-u-1-5 pure-hidden-phone">
+            <div id="sidebar" ng-controller="TweetController" class="pure-u-1-4 pure-hidden-phone">
 
                 <ul>
                     <li ng-repeat="tweet in tweets">
@@ -51,6 +52,7 @@
                 </ul>
 
             </div>
+        </div>
             
 
     </div>

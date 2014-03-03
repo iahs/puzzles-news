@@ -13,3 +13,4 @@ Thumbs.db
 
 .idea/
 app/libraries/api_key.txt
+app/libraries/latest-tweets-php-o-auth-master/config.php
