@@ -32,6 +32,7 @@
                 <li><a ui-sref="posts.new">Create post</a></li>
                 <li><a ui-sref="user.login">Login</a></li>
                 <li><a ui-sref="twitterfeed">Twitter</a></li>
+                <li><a ui-sref="search">Search</a></li>
                 <li>{{ auth.user | json }}</li>
             </div>
         </div>
@@ -61,6 +62,7 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="js/filters.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
@@ -68,6 +70,7 @@
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/tweetCtrl.js"></script>
     <script src="js/controllers/twitter.js"></script>
+    <script src="js/controllers/searchCtrl.js"></script>
 
 </body>
 </html>

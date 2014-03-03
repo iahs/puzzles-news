@@ -46,6 +46,9 @@ Route::group(array('prefix' => 'api'), function() {
     // Infinite scrolling
     Route::get('posts/infinite', 'PostsController@infinite');
 
+    // Fulltext search on post body
+    Route::get('posts/search', 'PostsController@search');
+
     Route::resource('users', 'UsersController',
         array('only' => array('store'))
     );

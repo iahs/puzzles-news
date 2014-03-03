@@ -23,3 +23,4 @@ class TweetersTableSeeder extends Seeder
     }
 
 }
+
