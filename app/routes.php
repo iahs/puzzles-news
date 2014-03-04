@@ -49,6 +49,9 @@ Route::group(array('prefix' => 'api'), function() {
     // Fulltext search on post body
     Route::get('posts/search', 'PostsController@search');
 
+    // Click tracking
+    Route::post('posts/click', 'PostsController@click');
+
     Route::resource('users', 'UsersController',
         array('only' => array('store'))
     );

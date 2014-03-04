@@ -20,7 +20,7 @@
 
 <body ng-app="newsApp">
     <div id="layout">
-        <!-- Menu toggle -->'
+        <!-- Menu toggle -->
         <a href="#menu" id="menuLink" class="menu-link">
             <!-- Hamburger icon -->
             <span></span>
@@ -42,7 +42,7 @@
             <div id="main" ui-view class="pure-u-3-4">
 
             </div>
-            
+
             <div id="sidebar" ng-controller="TweetController" class="pure-u-1-4 pure-hidden-phone">
 
                 <ul>
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-            
+
 
     </div>
 

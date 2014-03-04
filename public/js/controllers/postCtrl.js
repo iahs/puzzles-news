@@ -76,10 +76,11 @@ angular.module('postCtrl', [])
         };
 
         // Expand post
-        $scope.expandPost = function(pos) {
-            $scope.posts[$scope.posts[pos].pos].expanded = true;
-            console.log('expanded post')
-            //TODO: track expand
+        $scope.expandPost = function(id,pos) {
+            $scope.posts[pos].expanded = true;
+            Post.click(id).success(function(getResponse) {
+                            console.log(getResponse.data);
+                        });
         };
 
         // TODO: refactor and move to controller/service. This is starting to look messy
