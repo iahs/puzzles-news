@@ -49,6 +49,8 @@ Route::group(array('prefix' => 'api'), function() {
     // Fulltext search on post body
     Route::get('posts/search', 'PostsController@search');
 
+    Route::get('tags', 'TagsController@index');
+
     Route::resource('users', 'UsersController',
         array('only' => array('store'))
     );

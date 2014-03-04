@@ -98,18 +98,21 @@ class PostsController extends BaseApiController {
 
     public function search()
     {
+        // TODO: add a fulltext index on title as well
         $query = Input::get('query');
+        $tags = Input::get('tags');
 
-        $posts = Post::whereRaw(
-            "MATCH(body) AGAINST(?)",
-            array($query)
-        )->limit(50)->get();
+        $posts = Post::join('tag_post', 'tag_post.post_id', '=', 'posts.id');
 
+        if (Input::has('tags'))
+            $posts->whereIn('tag_post.id', explode(',', $tags));
+        if (Input::has('query'))
+            $posts->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
+        $posts->limit(50)->orderBy('created_at', 'desc');
 
         return Response::json([
-          'data' => $this->postTransformer->transformCollection($posts->toArray())
+          'data' => $this->postTransformer->transformCollection($posts->get()->toArray())
         ]);
-
     }
 
 }
