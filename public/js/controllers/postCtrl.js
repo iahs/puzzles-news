@@ -42,7 +42,6 @@ angular.module('postCtrl', [])
                     var pos = $scope.posts.length;
                     for (var i=0; i<response.data.length; i++) {
                         response.data[i].pos = pos++;
-                        console.log(pos)
                         $scope.posts.push(response.data[i]);
                     }
                     infiniteLoading = false;
@@ -78,12 +77,6 @@ angular.module('postCtrl', [])
         // Expand post
         $scope.expandPost = function(id,pos) {
             $scope.posts[pos].expanded = true;
-            Post.click(id).success(function(getResponse) {
-                            console.log(getResponse.data);
-                        });
+            Post.click(id);
         };
-
-        // TODO: refactor and move to controller/service. This is starting to look messy
-
-
     })

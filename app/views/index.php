@@ -29,11 +29,9 @@
             <div class="pure-menu pure-menu-open">
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
-                <li><a ui-sref="posts.new">Create post</a></li>
-                <li><a ui-sref="user.login">Login</a></li>
-                <li><a ui-sref="twitterfeed">Twitter</a></li>
                 <li><a ui-sref="search">Search</a></li>
-                <li>{{ auth.user | json }}</li>
+                <li><a ui-sref="user.login">Login</a></li>
+                {{ auth.user.first_name || auth.user.cs50fullname }}
             </div>
         </div>
 
