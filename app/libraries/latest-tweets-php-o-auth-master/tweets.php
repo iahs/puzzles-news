@@ -63,11 +63,11 @@
 	
 	// Function to display the latest tweets.
 	function display_latest_tweets(
-		
+
 		// Function parameters.
 		$twitter_user_id,
 		$cache_file          = './tweets.txt',  // Change this to the path of your cache file. (Default : ./tweets.txt)
-		$tweets_to_display   = 5,               // Number of tweets you would like to display. (Default : 5)
+		$tweets_to_display   = 20,               // Number of tweets you would like to display. (Default : 5)
 		$ignore_replies      = false,           // Ignore replies from the timeline. (Default : false)
 		$include_rts         = false,           // Include retweets. (Default : false)
 		$twitter_wrap_open   = '<ul class="home-tweets-ul">',
@@ -112,13 +112,13 @@
  					
 					// Define tweet_count as zero
 					$tweet_count = 0;
-					print $tweet_count;
  
 					// Start output buffering.
 					ob_start();
  
 					// Open the twitter wrapping element.
-					$twitter_html = $twitter_wrap_open;
+					// $twitter_html = $twitter_wrap_open;
+					$twitter_html = "";
  
 					// Iterate over tweets.
 					foreach($get_tweets as $tweet) {
@@ -127,9 +127,9 @@
 							$tweet_count++;
  							$tweet_desc = $tweet->text;
 							// Add hyperlink html tags to any urls, twitter ids or hashtags in the tweet.
-							$tweet_desc = preg_replace("/((http)+(s)?:\/\/[^<>\s]+)/i", "<a href=\"\\0\" target=\"_blank\">\\0</a>", $tweet_desc );
-							$tweet_desc = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $tweet_desc );
-							$tweet_desc = preg_replace("/[#]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/search?q=%23\\1\" target=\"_blank\">\\0</a>", $tweet_desc );
+							// $tweet_desc = preg_replace("/((http)+(s)?:\/\/[^<>\s]+)/i", "<a href=\"\\0\" target=\"_blank\">\\0</a>", $tweet_desc );
+							// $tweet_desc = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $tweet_desc );
+							// $tweet_desc = preg_replace("/[#]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/search?q=%23\\1\" target=\"_blank\">\\0</a>", $tweet_desc );
  
  							// Convert Tweet display time to a UNIX timestamp. Twitter timestamps are in UTC/GMT time.
 							$tweet_time = strtotime($tweet->created_at);	
@@ -161,7 +161,7 @@
  							}
  
 							// Render the tweet.
-							$twitter_html .= $tweet_wrap_open.html_entity_decode($tweet_desc).$meta_wrap_open.'<a href="http://twitter.com/'.$twitter_user_id.'">'.$display_time.'</a>'.$meta_wrap_close.$tweet_wrap_close;
+							$twitter_html .= html_entity_decode($tweet_desc)." ".$display_time."\n";
  
 						// If we have processed enough tweets, stop.
 						if ($tweet_count >= $tweets_to_display){
@@ -171,7 +171,7 @@
 					}
  
 					// Close the twitter wrapping element.
-					$twitter_html .= $twitter_wrap_close;
+					// $twitter_html .= $twitter_wrap_close;
 					echo $twitter_html;
  
 					// Generate a new cache file.
