@@ -122,24 +122,10 @@ class PostsController extends BaseApiController {
 
         $posts = Post::whereIn('id', $postIds, 'or')->get();
 
-        /*
-        # Doing the join the wrong way
-        $posts = Post::join('tag_post', 'tag_post.post_id', '=', 'posts.id');
-
-        if (Input::has('tags'))
-            $tagIds = json_decode('[' . $tags . ']', true);
-            $posts->where('tag_post.tag_id', $tagIds);
-        if (Input::has('query'))
-            $posts->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
-        $posts->limit(50)->orderBy('created_at', 'desc');
-
-        $posts->get();
-        dd(DB::getQueryLog());
-        */
-
         return Response::json([
           'data' => $this->postTransformer->transformCollection($posts->toArray())
         ]);
+
     }
 
     public function click()
