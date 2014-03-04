@@ -9,7 +9,7 @@ angular.module('postService', [])
             infiniteLoader: function(pNewest, pLimit) {
                 return $http({
                     method: 'GET',
-                    url: '/api/posts/infinite',
+                    url: postUrl + 'infinite',
                     params: {
                         newest: pNewest,
                         limit: pLimit
@@ -27,6 +27,17 @@ angular.module('postService', [])
 
             destroy: function(id) {
                 return $http.delete(postUrl + id);
+            },
+
+            click: function(id) {
+                return $http.post(postUrl + 'click',
+                $.param({id: id}),
+                {
+                    headers:
+                    {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    }
+                });
             }
         }
 

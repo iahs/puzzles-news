@@ -112,4 +112,13 @@ class PostsController extends BaseApiController {
 
     }
 
+    public function click()
+    {
+        $id = Input::get('id');
+        if (!$id) return Response::Make('',400);
+        $click = Click::firstOrCreate(array('post_id'=>$id,'date'=>date('Y-m-d')));
+        $click->increment('clicks');
+        return Response::Make('',200);
+    }
+
 }
