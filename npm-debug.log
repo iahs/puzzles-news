@@ -8,7 +8,7 @@
 5 error If you need help, you may report this *entire* log,
 5 error including the npm and node versions, at:
 5 error     <http://github.com/isaacs/npm/issues>
-6 error System Darwin 13.0.0
+6 error System Darwin 13.1.0
 7 error command "/usr/local/Cellar/node/0.10.25/bin/node" "/usr/local/bin/npm" "completion"
 8 error cwd /Users/martin/Dropbox/Harvard/CS164/news-puzzles
 9 error node -v v0.10.25

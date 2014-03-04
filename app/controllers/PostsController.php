@@ -102,17 +102,53 @@ class PostsController extends BaseApiController {
         $query = Input::get('query');
         $tags = Input::get('tags');
 
+        $tagIds = json_decode('[' . $tags . ']', true);
+
+        $idObjects = DB::table('tag_post')
+            ->join('posts', 'posts.id', '=', 'tag_post.post_id')
+            ->select('posts.id')
+            ->distinct();
+        if (Input::has('tags'))
+            $idObjects->whereIn('tag_post.tag_id', $tagIds, 'or');
+        if (Input::has('query'))
+            $idObjects->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
+        $idObjects = $idObjects->get();
+
+        $postIds = [];
+        foreach ($idObjects as $post) {
+            if (! in_array($post->id, $postIds))
+                array_push($postIds, $post->id);
+        }
+
+        $posts = Post::whereIn('id', $postIds, 'or')->get();
+
+        /*
+        # Doing the join the wrong way
         $posts = Post::join('tag_post', 'tag_post.post_id', '=', 'posts.id');
 
         if (Input::has('tags'))
-            $posts->whereIn('tag_post.id', explode(',', $tags));
+            $tagIds = json_decode('[' . $tags . ']', true);
+            $posts->where('tag_post.tag_id', $tagIds);
         if (Input::has('query'))
             $posts->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
         $posts->limit(50)->orderBy('created_at', 'desc');
 
+        $posts->get();
+        dd(DB::getQueryLog());
+        */
+
         return Response::json([
-          'data' => $this->postTransformer->transformCollection($posts->get()->toArray())
+          'data' => $this->postTransformer->transformCollection($posts->toArray())
         ]);
+    }
+
+    public function click()
+    {
+        $id = Input::get('id');
+        if (!$id) return Response::Make('',400);
+        $click = Click::firstOrCreate(array('post_id'=>$id,'date'=>date('Y-m-d')));
+        $click->increment('clicks');
+        return Response::Make('',200);
     }
 
 }

@@ -33,7 +33,16 @@ class PostsTableSeeder extends Seeder
               array('title' => 'SEAS Newsfeed','website' => 'http://www.seas.harvard.edu/','permalink' => 'http://www.seas.harvard.edu/news-events/news-events/home-page/1/2/newsfeed/RSS'),
               array('title' => 'The Occasional Pamphlet','website' => 'http://blogs.law.harvard.edu/pamphlet/','permalink' => 'http://blogs.law.harvard.edu/pamphlet/feed/'),
               array('title' => 'The Spark','website' => 'http://www.extension.harvard.edu/','permalink' => 'http://harvardextension.wordpress.com/feed/'),
-              array('title' => 'The Triple Helix','website' => 'http://thetriplehelix.org/','permalink' => 'http://thetriplehelix.org/feeds/features')
+              array('title' => 'The Triple Helix','website' => 'http://thetriplehelix.org/','permalink' => 'http://thetriplehelix.org/feeds/features'),
+              array('title' => 'Arts & Culture | harvard.edu','website'     => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/hBlI'),
+              array('title' => 'Campus & Community | harvard.edu','website' => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/CrKF'),
+              array('title' => 'Global Engagement | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/GlobalEngagement'),
+              array('title' => 'Health & Medicine | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/qUup'),
+              array('title' => 'Public Service | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/nEqP'),
+              array('title' => 'Science & Engineering | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/cnhh'),
+              array('title' => 'Sustainability & Environment | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/SustainabilityEnvironment'),
+              array('title' => 'Teaching & Learning Innovation | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/TeachingLearningInnovation'),
+              array('title' => 'Unparalleled Student Experience | harvard.edu','website'  => 'http://harvard.edu','permalink' => 'http://feeds.feedburner.com/harvard/hsec'),
             ) as $item)
         {
             RssFeed::create($item);

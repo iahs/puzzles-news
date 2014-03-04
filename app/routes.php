@@ -49,7 +49,11 @@ Route::group(array('prefix' => 'api'), function() {
     // Fulltext search on post body
     Route::get('posts/search', 'PostsController@search');
 
+    // Tags
     Route::get('tags', 'TagsController@index');
+
+    // Click tracking
+    Route::post('posts/click', 'PostsController@click');
 
     Route::resource('users', 'UsersController',
         array('only' => array('store'))

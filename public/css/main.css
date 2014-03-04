@@ -34,3 +34,8 @@ aside {
 .button-xlarge {
     font-size: 125%;
 }
+
+.truncated-post:hover {
+    background: #EEE;
+}
+
