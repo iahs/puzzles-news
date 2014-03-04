@@ -108,11 +108,15 @@ class PostsController extends BaseApiController {
             ->join('posts', 'posts.id', '=', 'tag_post.post_id')
             ->select('posts.id')
             ->distinct();
-        if (Input::has('tags'))
-            $idObjects->whereIn('tag_post.tag_id', $tagIds, 'or');
+
         if (Input::has('query'))
             $idObjects->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
+        if (Input::has('tags'))
+            $idObjects->whereIn('tag_post.tag_id', $tagIds, 'and');
+
         $idObjects = $idObjects->get();
+
+        // dd(DB::getQueryLog());
 
         $postIds = [];
         foreach ($idObjects as $post) {
