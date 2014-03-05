@@ -50,9 +50,6 @@
 
 	// Start output buffering.
 	ob_start();
-
-	// Session start
-	// session_start(); 
 	
 	// Set timezone. (Modify to match your timezone) If you need help with this, you can find it here. (http://php.net/manual/en/timezones.php)
 	date_default_timezone_set('America/New_York');
@@ -92,18 +89,11 @@
  
 		// A flag so we know if the feed was successfully parsed.
 		$tweet_found         = false;
-		
-		// Show cached version of tweets, if it's less than $cachetime.
-		// if (time() - $cachetime < $cache_file_created) {
-	 // 		$tweet_found = true;
-		// 	// Display tweets from the cache.
-		// 	readfile($cache_file);		 
-		// } else {
 
-			$consumerkey         = CONSUMER_KEY;
-			$consumersecret      = CONSUMER_SECRET;
-			$accesstoken         = ACCESS_TOKEN;
-			$accesstokensecret   = ACCESS_SECRET;
+		$consumerkey         = CONSUMER_KEY;
+		$consumersecret      = CONSUMER_SECRET;
+		$accesstoken         = ACCESS_TOKEN;
+		$accesstokensecret   = ACCESS_SECRET;
 		
 		// Cache file not found, or old. Authenticae app.
 		$connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
