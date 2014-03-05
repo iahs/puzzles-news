@@ -96,39 +96,49 @@ class PostsController extends BaseApiController {
         ], 200);
 	}
 
+
+    /**
+     * Take a fulltext query string and a list of tag ids from the user
+     * and return a list of corresponding posts
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search()
     {
-        // TODO: add a fulltext index on title as well
         $query = Input::get('query');
         $tags = Input::get('tags');
 
-        $tagIds = json_decode('[' . $tags . ']', true);
+        // Convert comma separated string to array of integer tag ids
+        $tagIds = array_map("intval", explode(",", $tags));
 
-        $idObjects = DB::table('tag_post')
-            ->join('posts', 'posts.id', '=', 'tag_post.post_id')
-            ->select('posts.id')
-            ->distinct();
+        $idObjects = DB::table('tag_post')->join('posts', 'posts.id', '=', 'tag_post.post_id');
 
         if (Input::has('query'))
-            $idObjects->whereRaw("MATCH(posts.body) AGAINST(?)", array($query));
+            $idObjects->whereRaw("MATCH(posts.title, posts.body) AGAINST(?)", array($query));
         if (Input::has('tags'))
             $idObjects->whereIn('tag_post.tag_id', $tagIds, 'and');
 
-        $idObjects = $idObjects->get();
+        // Get the ids of all posts that match the query and tag ids
+        $idObjects = $idObjects->select('posts.id as postid')->distinct()->get();
 
-        // dd(DB::getQueryLog());
-
+        // Convert array of stdObj to an integer array for the wherein query
         $postIds = [];
         foreach ($idObjects as $post) {
-            if (! in_array($post->id, $postIds))
-                array_push($postIds, $post->id);
+            if (! in_array($post->postid, $postIds))
+                array_push($postIds, $post->postid);
         }
 
-        $posts = Post::whereIn('id', $postIds, 'or')->get();
+        if(count($postIds)) {
+            // Find all posts that corresponds to the query string and supplied tag ids
+            $posts = Post::whereIn('id', $postIds, 'or')->get();
+        } else {
+            // Error message if whereIn is used with empty array
+            // This query will always return empty, as no posts can have negative id
+            $posts = Post::where('id', '=', -1)->get();
+        }
 
         return Response::json([
           'data' => $this->postTransformer->transformCollection($posts->toArray())
-        ]);
+        ], 200);
 
     }
 
