@@ -101,8 +101,9 @@ class ImportTweets extends Command {
 			}
 
 			$tweet = new Tweet(array(
-				'id'	=>$tweet->get_id(),
+				'id'	=> $tweet->get_id(),
 	            'text' 	=> $tweet->get_text(),
+	            'tweet_time' => $tweet->get_time(),
 	        ));
 
 	        $tweet->tweeter()->associate($tweeter);
