@@ -87,7 +87,7 @@ class ImportTweets extends Command {
 			    	'text'		=> $tweet->get_text(),
 			    ),
 			    array(
-			    	'text'		=> 'required',
+			    	'text'		=> 'required|unique:tweets',
 			    )
 			);
 
