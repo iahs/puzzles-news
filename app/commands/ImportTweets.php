@@ -94,7 +94,7 @@ class ImportTweets extends Command {
 			// Presumably, the feed is invalid or we've hit old posts. Either way, we're
 			//   done with this feed
 			if ($validator->fails()) {
-				print("FAIL\n");
+				print(">>>>> FAIL\n");
 				return;
 			}
 
