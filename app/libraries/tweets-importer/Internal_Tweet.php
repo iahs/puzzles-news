@@ -7,8 +7,9 @@ class Internal_Tweet {
     var $time;
 
     // constructor
-	function Internal_Tweet($text, $time = NULL) 
+	function Internal_Tweet($id, $text, $time = NULL) 
 	{
+		$this->id = $id;
 		$this->text = $text;
 	    if (!$time) {
 	    	$this->time = time();
@@ -18,6 +19,12 @@ class Internal_Tweet {
  	    }
 	}
 
+	// getter method for id
+	function get_id()
+	{
+		return $this->id;
+	}
+	
 	// getter method for text
 	function get_text()
 	{

@@ -3,11 +3,12 @@
 class Tweet extends Eloquent {
 
     # Available for mass assignment
-    protected $fillable = array('text');
+    protected $fillable = array('id', 'text');
 
     public static function validate($input) {
 
         $rules = array(
+            'id' => 'Required',
             'text' => 'Required',
         );
 

@@ -84,9 +84,11 @@ class ImportTweets extends Command {
 			// Enforce uniqueness and make sure the feed is valid
 			$validator = Validator::make(
 			    array(
+			    	'id'		=>$tweet->get_id(),
 			    	'text'		=> $tweet->get_text(),
 			    ),
 			    array(
+			    	'id'		=> 'required|unique:tweets',
 			    	'text'		=> 'required|unique:tweets',
 			    )
 			);
@@ -99,6 +101,7 @@ class ImportTweets extends Command {
 			}
 
 			$tweet = new Tweet(array(
+				'id'	=>$tweet->get_id(),
 	            'text' 	=> $tweet->get_text(),
 	        ));
 
