@@ -73,7 +73,7 @@ class ImportTweets extends Command {
 	private function importTweet($tweeter)
 	{
 
-		$tweets = display_latest_tweets($tweeter->$handle);
+		$tweets = display_latest_tweets($tweeter->handle);
 
 		$tweeterCounter = 0;
 
