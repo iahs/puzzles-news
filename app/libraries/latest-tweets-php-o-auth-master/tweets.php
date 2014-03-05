@@ -42,17 +42,9 @@
 	 *
 	 *
 	**/
-
-
-	// Twitter keys (You'll need to visit https://dev.twitter.com and register to get these.
-	$consumerkey         = "";
-	$consumersecret      = "";
-	$accesstoken         = "";
-	$accesstokensecret   = "";
-
+ 
 	// Require Config files
 	require_once("config.php");
-
 
 	// Session start
 	session_start(); 
@@ -103,8 +95,11 @@
 			readfile($cache_file);		 
 		} else {
 
-
-
+			$consumerkey         = CONSUMER_KEY;
+			$consumersecret      = CONSUMER_SECRET;
+			$accesstoken         = ACCESS_TOKEN;
+			$accesstokensecret   = ACCESS_SECRET;
+		
 		// Cache file not found, or old. Authenticae app.
 		$connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
 		
@@ -117,8 +112,6 @@
  					
 					// Define tweet_count as zero
 					$tweet_count = 0;
-
-					print $tweet_count;
  
 					// Start output buffering.
 					ob_start();
@@ -198,6 +191,5 @@
 	}
 	
 	// Display latest tweets. (Modify username to your Twitter handle)
-
-	display_latest_tweets('andrew_biggart');
-
+	display_latest_tweets('taylorswift13');
+?>
