@@ -107,8 +107,8 @@ class PostsController extends BaseApiController {
         $query = Input::get('query');
         $tags = Input::get('tags');
 
-        // Convert comma separated string to array of tag ids
-        $tagIds = json_decode('[' . $tags . ']', true);
+        // Convert comma separated string to array of integer tag ids
+        $tagIds = array_map("intval", explode(",", $tags));
 
         $idObjects = DB::table('tag_post')->join('posts', 'posts.id', '=', 'tag_post.post_id');
 
