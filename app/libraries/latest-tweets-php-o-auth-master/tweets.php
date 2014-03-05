@@ -161,7 +161,7 @@
  							}
  
 							// Render the tweet.
-							$twitter_html .= html_entity_decode($tweet_desc)." ".$display_time."\n";
+							$twitter_html .= twitter_user_id.",".html_entity_decode($tweet_desc).",".$display_time."\n";
  
 						// If we have processed enough tweets, stop.
 						if ($tweet_count >= $tweets_to_display){
