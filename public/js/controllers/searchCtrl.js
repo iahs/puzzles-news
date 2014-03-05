@@ -1,5 +1,8 @@
 angular.module('searchCtrl', [])
-    .controller('SearchController', function ($scope, $http) {
+    .controller('SearchController', function ($scope, $http, Post) {
+
+        // CONFIG: max post length
+        $scope.maxPostLength = 320;
 
         $scope.queryTags = [];
 
@@ -16,6 +19,11 @@ angular.module('searchCtrl', [])
         $scope.removeQueryTag = function (tag) {
             var tag = $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
             $scope.tags.push(tag);
+        };
+
+        $scope.expandPost = function(id,pos) {
+            $scope.searchResults[pos].expanded = true;
+            Post.click(id);
         };
 
         $scope.search = function() {

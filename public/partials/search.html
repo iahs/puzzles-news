@@ -30,8 +30,13 @@
 
     <div ng-repeat="post in searchResults" id="post-{{ post.id }}">
         <h3>{{ post.title }}</h3>
-        <p>Tags: {{ post.tags }}</p>
-        <p>{{ post.body}}</p>
+        <a ng-repeat="tag in post.tags" class="pure-button button-xsmall">{{ tag.name }}</a>
+        <div ng-hide="post.expanded" ng-click="expandPost(post.id, post.pos)" class="truncated-post" slide-toggle="#full-post-{{post.id}}">
+            <p>{{ post.body | unescape | truncate:maxPostLength }} <i ng-if="post.body.length > maxPostLength">Click to expand</i></p>
+        </div>
+        <div id="full-post-{{post.id}}" class="slideable" duration=".5s">
+            <p>{{ post.body | unescape }}</p>
+        </div>
     </div>
 </div>
 
