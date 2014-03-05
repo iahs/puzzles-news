@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new ImportRSS);
+Artisan::add(new ImportTweets);
