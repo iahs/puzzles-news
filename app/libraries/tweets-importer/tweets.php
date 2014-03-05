@@ -94,11 +94,11 @@
 		$tweet_found         = false;
 		
 		// Show cached version of tweets, if it's less than $cachetime.
-		if (time() - $cachetime < $cache_file_created) {
-	 		$tweet_found = true;
-			// Display tweets from the cache.
-			readfile($cache_file);		 
-		} else {
+		// if (time() - $cachetime < $cache_file_created) {
+	 // 		$tweet_found = true;
+		// 	// Display tweets from the cache.
+		// 	readfile($cache_file);		 
+		// } else {
 
 			$consumerkey         = CONSUMER_KEY;
 			$consumersecret      = CONSUMER_SECRET;
@@ -171,15 +171,16 @@
 						array_push($tweets_array, $tweet);
 
 						// if we've already read through this tweet, then stop
-						if ($tweet_time < $cache_file_created) {
-							break;	 
-						}
+						// if ($tweet_time < $cache_file_created) {
+						// 	print("BROKE OUT\n");
+						// 	break;	 
+						// }
  
 					}
  
 					// Close the twitter wrapping element.
 					// $twitter_html .= $twitter_wrap_close;
-					echo $twitter_html;
+					echo ">>>>>".$twitter_html;
  
 					// Generate a new cache file.
 					$file = fopen($cache_file, 'w');
@@ -195,7 +196,7 @@
 				
 			}
 			
-		}
+		// }
 		
 	}
 	

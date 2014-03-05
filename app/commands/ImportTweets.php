@@ -40,7 +40,7 @@ class ImportTweets extends Command {
 	{
 		foreach (Tweeter::all() as $tweeter)
 		{
-			$this->info('Importing tweets from ' . $tweeter->tweeter_id);
+			$this->info('Importing tweets from ' . $tweeter->handle);
 			$this->importTweet($tweeter);
 		}
 		$this->info('Done importing tweets');
@@ -87,14 +87,16 @@ class ImportTweets extends Command {
 			    	'text'		=> $tweet->get_text(),
 			    ),
 			    array(
-			    	'title'		=> 'required',
+			    	'text'		=> 'required',
 			    )
 			);
 
 			// Presumably, the feed is invalid or we've hit old posts. Either way, we're
 			//   done with this feed
-			if ($validator->fails())
+			if ($validator->fails()) {
+				print("FAIL\n");
 				return;
+			}
 
 			$tweet = new Tweet(array(
 	            'text' 	=> $tweet->get_text(),
