@@ -14,11 +14,13 @@ angular.module('postCtrl', [])
         $scope.addQueryTag = function (tag) {
             var tag = $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
             $scope.queryTags.push(tag);
+            $scope.search();
         };
 
         $scope.removeQueryTag = function (tag) {
             var tag = $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
             $scope.tags.push(tag);
+            $scope.search();
         };
 
         // Object to hold data for the new post form
@@ -116,4 +118,10 @@ angular.module('postCtrl', [])
                     }
                 });
         };
+
+        $scope.showTag = function(tag) {
+            $scope.search.query = '';
+            $scope.queryTags = [tag];
+            $scope.search();
+        }
     })
