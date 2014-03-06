@@ -29,15 +29,15 @@ angular.module('postCtrl', [])
             infiniteLoading = true;
 
             // Find the oldest post in the scope
-            var minId = Number.POSITIVE_INFINITY;
+            var minCreated = Number.POSITIVE_INFINITY;
 
             if (! $scope.posts) return;
             for (var i=$scope.posts.length-1; i>=0; i--) {
                 var tmp = $scope.posts[i];
-                if (tmp.id < minId) minId = tmp.id;
+                if (tmp.time_posted < minCreated) minCreated = tmp.time_posted;
             }
             // And load posts older than that. 15 at the time
-            Post.infiniteLoader(minId, 15)
+            Post.infiniteLoader(minCreated, 15)
                 .success(function(response) {
                     var pos = $scope.posts.length;
                     for (var i=0; i<response.data.length; i++) {
