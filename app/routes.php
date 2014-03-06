@@ -9,9 +9,8 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('index');
+Route::get('/', function () {
+    return View::make('index');
 });
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +20,7 @@ Route::get('/', function()
 | Register all API routes in the API namespace
 |
 */
-Route::group(array('prefix'=> 'session'), function() {
+Route::group(array('prefix'=> 'session'), function () {
     Route::get('/cs50login', array('as' => 'cs50login', 'uses' => 'SessionsController@cs50login'));
     Route::get('/cs50return', array('as' => 'cs50return', 'uses' => 'SessionsController@cs50return'));
     Route::get('/show', 'SessionsController@show');
@@ -38,7 +37,7 @@ Route::group(array('prefix'=> 'session'), function() {
 | Register all API routes in the API namespace
 |
 */
-Route::group(array('prefix' => 'api'), function() {
+Route::group(array('prefix' => 'api'), function () {
     // Angular will handle create and edit
     Route::resource('posts', 'PostsController',
         array('only' => array('index', 'store', 'destroy'))
@@ -64,8 +63,6 @@ Route::group(array('prefix' => 'api'), function() {
 | All routes that are not index or api will be redirected to Angular
 |
 */
-App::missing(function($exception)
-{
+App::missing(function ($exception) {
     return View::make('index');
 });
-
