@@ -3,10 +3,8 @@ var newsApp = angular.module('newsApp', [
     'postCtrl',
     'userCtrl',
     'menuCtrl',
-    'searchCtrl',
     'postService',
     'authService',
-    'twitterFeed',
     'tweetCtrl',
     'newsAppFilters',
     'angularSlideables'
@@ -33,11 +31,6 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/posts.new.html",
             controller: 'PostController'
         })
-        .state('search', {
-            url: "/search",
-            templateUrl: "partials/search.html",
-            controller: 'SearchController'
-        })
         .state('user', {
             abstract: true,
             templateUrl: "partials/user.html"
@@ -56,10 +49,6 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/profile",
             controller:"UserController",
             templateUrl: "partials/user.edit.html"
-        })
-        .state('twitterfeed', {
-            url: "/twitterfeed",
-            templateUrl: "partials/twitterfeed.html",
         })
 });
 

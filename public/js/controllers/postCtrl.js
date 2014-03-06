@@ -3,12 +3,30 @@ angular.module('postCtrl', [])
         // CONFIG: max post length
         $scope.maxPostLength = 320;
 
+        // Tag stuff
+        $scope.queryTags = [];
+
+        $http.get('/api/tags').success(function (response) {
+            $scope.tags = response['data'];
+        });
+
+        // TODO: make it work
+        $scope.addQueryTag = function (tag) {
+            var tag = $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
+            $scope.queryTags.push(tag);
+        };
+
+        $scope.removeQueryTag = function (tag) {
+            var tag = $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
+            $scope.tags.push(tag);
+        };
+
         // Object to hold data for the new post form
         $scope.postData = {};
         var infiniteLoading = false;
 
         // Get all the posts
-        Post.infiniteLoader(0, 15)
+        Post.infiniteLoader(0, 15, '', '')
             .success(function(response) {
                 $scope.posts = response.data;
                 var pos = 0;
@@ -37,7 +55,7 @@ angular.module('postCtrl', [])
                 if (tmp.time_posted < minCreated) minCreated = tmp.time_posted;
             }
             // And load posts older than that. 15 at the time
-            Post.infiniteLoader(minCreated, 15)
+            Post.infiniteLoader(minCreated, 15, $scope.search.query, $scope.tagIds)
                 .success(function(response) {
                     var pos = $scope.posts.length;
                     for (var i=0; i<response.data.length; i++) {
@@ -78,5 +96,24 @@ angular.module('postCtrl', [])
         $scope.expandPost = function(id,pos) {
             $scope.posts[pos].expanded = true;
             Post.click(id);
+        };
+
+        // Search for posts
+        $scope.search = function() {
+            var tagIds = [];
+            for(var i=0; i<$scope.queryTags.length; i++) {
+                tagIds.push($scope.queryTags[i]['id']);
+            };
+
+            $scope.tagIds = tagIds.join(',');
+
+            Post.infiniteLoader(0, 15, $scope.search.query, $scope.tagIds)
+                .success(function(response) {
+                    $scope.posts = response.data && response.data.length>0 ? response.data : [{title: "No matches"}];
+                    var pos = 0;
+                    for (var i=0; i<$scope.posts.length; i++) {
+                        $scope.posts[i].pos = pos++;
+                    }
+                });
         };
     })

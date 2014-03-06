@@ -11,9 +11,13 @@ class PostTransformer extends Transformer {
     public function transform($post)
     {
         return [
-            'title' => $post['title'],
-            'body' => $post['body'],
-            'tags' => $this->tagTransformer->transformCollection($post['tags'])
+            'id'             => $post['id'],
+            'permalink'      => $post['permalink'],
+            'time_posted'    => $post['time_posted'],
+            'title'          => $post['title'],
+            'body'           => $post['body'],
+            'clicks'         => $post['clicks'],
+            'tags'           => $this->tagTransformer->transformCollection($post['tags'])
         ];
     }
-} 
+}

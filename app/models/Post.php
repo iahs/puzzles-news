@@ -34,7 +34,6 @@ class Post extends Eloquent
     {
         $array = parent::toArray();
         $array['clicks'] = $this->clicks;
-
         return $array;
     }
     public function getClicksAttribute()

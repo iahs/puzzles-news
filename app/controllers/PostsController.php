@@ -30,25 +30,6 @@ class PostsController extends BaseApiController
     }
 
     /**
-     * Display a listing of post with id<requested.
-     *
-     * @return Response
-     */
-    public function infinite()
-    {
-        // Big default so we always get some posts
-        $oldest = Input::get('oldest', 0) > 0 ? Input::get('oldest') : time();
-        $oldest = date('Y-m-d H:i:s',$oldest);
-        $limit = Input::get('limit', 5);
-
-        $posts = Post::orderBy('time_posted', 'desc')->where('time_posted', '<', $oldest)->take($limit)->get();
-
-        return Response::json([
-            'data' => $posts->toArray()
-        ], 200);
-    }
-
-    /**
      * Store a oldly created resource in storage.
      *
      * @return Response
@@ -102,12 +83,17 @@ class PostsController extends BaseApiController
     /**
      * Take a fulltext query string and a list of tag ids from the user
      * and return a list of corresponding posts
+     * Display a listing of post with id<requested
+     * Gets all posts if no query or tags
      * @return \Illuminate\Http\JsonResponse
      */
-    public function search()
+    public function infinite()
     {
         $query = Input::get('query');
         $tags = Input::get('tags');
+        $oldest = Input::get('oldest', 0) > 0 ? Input::get('oldest') : time();
+        $oldest = date('Y-m-d H:i:s',$oldest);
+        $limit = Input::get('limit', 5);
 
         // Convert comma separated string to array of integer tag ids
         $tagIds = array_map("intval", explode(",", $tags));
@@ -131,7 +117,7 @@ class PostsController extends BaseApiController
 
         if (count($postIds)) {
             // Find all posts that corresponds to the query string and supplied tag ids
-            $posts = Post::whereIn('id', $postIds, 'or')->orderBy('created_at')->get();
+            $posts = Post::whereIn('id', $postIds, 'or')->orderBy('time_posted', 'desc')->where('time_posted', '<', $oldest)->take($limit)->get();;
         } else {
             // Error message if whereIn is used with empty array
             // This query will always return empty, as no posts can have negative id
