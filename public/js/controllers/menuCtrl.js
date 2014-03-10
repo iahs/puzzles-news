@@ -3,6 +3,7 @@ angular.module('menuCtrl', [])
         // Bind the auth object with current user data to the scope
         Auth.getAuth().then(function (auth) {
             $scope.auth = auth;
+            $scope.logout = Auth.logout;
         });
 
     });

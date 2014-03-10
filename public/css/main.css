@@ -39,6 +39,11 @@ aside {
     background: #EEE;
 }
 
+.error {
+    background: #f5ab9e;
+    color: #8c3a2b;
+}
+
 a {
   color:inherit;
   text-decoration: none;
