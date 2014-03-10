@@ -13,7 +13,8 @@ class PostTransformer extends Transformer {
         return [
             'title' => $post['title'],
             'body' => $post['body'],
-            'tags' => $this->tagTransformer->transformCollection($post['tags'])
+            'tags' => $this->tagTransformer->transformCollection($post['tags']),
+            'created_at' => $post['created_at']
         ];
     }
 } 

@@ -116,6 +116,7 @@ class PostsController extends BaseApiController {
             $idObjects->whereRaw("MATCH(posts.title, posts.body) AGAINST(?)", array($query));
         if (Input::has('tags'))
             $idObjects->whereIn('tag_post.tag_id', $tagIds, 'and');
+            $idObjects->where('relevance', '>', '0.5');
 
         // Get the ids of all posts that match the query and tag ids
         $idObjects = $idObjects->select('posts.id as postid')->distinct()->get();
@@ -129,7 +130,7 @@ class PostsController extends BaseApiController {
 
         if(count($postIds)) {
             // Find all posts that corresponds to the query string and supplied tag ids
-            $posts = Post::whereIn('id', $postIds, 'or')->get();
+            $posts = Post::whereIn('id', $postIds, 'or')->orderBy('created_at', 'desc')->get();
         } else {
             // Error message if whereIn is used with empty array
             // This query will always return empty, as no posts can have negative id
