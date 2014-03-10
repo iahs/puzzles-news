@@ -29,7 +29,6 @@
             <div class="pure-menu pure-menu-open">
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
-                <li><a ui-sref="search">Search</a></li>
                 <li><a ui-sref="user.login">Login</a></li>
                 {{ auth.user.first_name || auth.user.cs50fullname }}
             </div>
@@ -71,8 +70,6 @@
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/tweetCtrl.js"></script>
-    <script src="js/controllers/twitter.js"></script>
-    <script src="js/controllers/searchCtrl.js"></script>
 
 </body>
 </html>

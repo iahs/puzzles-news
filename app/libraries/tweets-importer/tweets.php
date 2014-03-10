@@ -49,7 +49,7 @@
 	require_once("config.php");
 
 	// Start output buffering.
-	ob_start();
+	// ob_start();
 	
 	// Set timezone. (Modify to match your timezone) If you need help with this, you can find it here. (http://php.net/manual/en/timezones.php)
 	date_default_timezone_set('America/New_York');
@@ -111,8 +111,6 @@
 					// Define tweet_count as zero
 					$tweet_count = 0;
  
-					
- 
 					// Open the twitter wrapping element.
 					// $twitter_html = $twitter_wrap_open;
 					$twitter_html = "";
@@ -122,7 +120,7 @@
 						
 						$tweet_found = true;
 						$tweet_count++;
-							$tweet_desc = $tweet->text;
+						$tweet_desc = $tweet->text;
 
 							// Convert Tweet display time to a UNIX timestamp. Twitter timestamps are in UTC/GMT time.
 						$tweet_time = strtotime($tweet->created_at);	
@@ -157,28 +155,22 @@
 						$twitter_html .= $twitter_user_id.",".html_entity_decode($tweet_desc).",".$display_time."\n";
 
 						// Store as an object
-						$tweet = new Internal_Tweet($tweet_desc, $tweet_time);
+						$tweet = new Internal_Tweet($tweet->id, $tweet_desc, $tweet_time);
 						array_push($tweets_array, $tweet);
-
-						// if we've already read through this tweet, then stop
-						// if ($tweet_time < $cache_file_created) {
-						// 	print("BROKE OUT\n");
-						// 	break;	 
-						// }
  
 					}
  
 					// Close the twitter wrapping element.
 					// $twitter_html .= $twitter_wrap_close;
-					echo ">>>>>".$twitter_html;
+					// echo ">>>>>".$twitter_html;
  
 					// Generate a new cache file.
-					$file = fopen($cache_file, 'w');
+					// $file = fopen($cache_file, 'w');
  
 					// Save the contents of output buffer to the file, and flush the buffer. 
-					fwrite($file, ob_get_contents()); 
-					fclose($file); 
-					ob_end_flush();
+					// fwrite($file, ob_get_contents()); 
+					// fclose($file); 
+					// ob_end_flush();
 
 					return $tweets_array;
 					

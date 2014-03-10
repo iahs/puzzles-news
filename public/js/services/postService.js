@@ -6,13 +6,15 @@ angular.module('postService', [])
                 return $http.get(postUrl);
             },
 
-            infiniteLoader: function(pNewest, pLimit) {
+            infiniteLoader: function(pOldest, pLimit, query, tags) {
                 return $http({
                     method: 'GET',
                     url: postUrl + 'infinite',
                     params: {
-                        newest: pNewest,
-                        limit: pLimit
+                        oldest: pOldest,
+                        limit: pLimit,
+                        query: query,
+                         tags: tags
                     }
                 });
             },

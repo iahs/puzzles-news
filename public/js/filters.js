@@ -30,7 +30,7 @@ angular.module('newsAppFilters', [])
     })
     .filter('unescape', function () {
         return function (text) {
-            return text.replace(/&[rlds]{2}quo;/g, '"').replace(/&nbsp;/g,' ').replace(/&hellip;/g,' ').replace(/&[a-z]{1,5};/g,'');
+            return text.replace(/&[rlds]{2}quo;/g, '"').replace(/&nbsp;/g,' ').replace(/&hellip;/g,' ').replace('&amp;',' and ').replace(/&[a-z]{1,5};/g,'');
         };
     });
 
