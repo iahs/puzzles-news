@@ -45,16 +45,20 @@ class UsersController extends BaseApiController {
                 'message' => 'You are not allowed to perfom this operation'
             ]);
         }
+        $user = Auth::user();
 
-        $v = User::validate($user_data);
-
-        if ($v->passes()) {
-            $user = Auth::user();
-            $user->fill($user_data);
-            $user->save();
+        if ($user->tweeter_id) {
+            $tweeter = Tweeter::find($user->tweeter_id);
+            $tweeter->handle = $user_data['handle'];
+            $tweeter->save();
         }
-
-
+        else {
+            $tweeter = new Tweeter;
+            $tweeter->name = $user->last_name ? $user->first_name . ' ' . $user->last_name : $user->cs50fullname;
+            $tweeter->handle = $user_data['handle'];
+            $tweeter->save();
+            $user->tweeter_id = $tweeter->id;
+        }
+        $user->save();
     }
-
 }

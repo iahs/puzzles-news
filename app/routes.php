@@ -52,7 +52,7 @@ Route::group(array('prefix' => 'api'), function () {
     Route::post('posts/click', 'PostsController@click');
 
     Route::resource('users', 'UsersController',
-        array('only' => array('store'))
+        array('only' => array('store','update'))
     );
 });
 /*
