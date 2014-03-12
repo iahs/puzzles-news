@@ -5,12 +5,14 @@ class Internal_Tweet {
 
     var $text;
     var $time;
+    var $tags;
 
     // constructor
-	function Internal_Tweet($id, $text, $time = NULL) 
+	function Internal_Tweet($id, $text, $time = NULL, $tags) 
 	{
 		$this->id = $id;
 		$this->text = $text;
+		$this->tags = $tags;
 	    if (!$time) {
 	    	$this->time = time();
  	    }
@@ -35,6 +37,11 @@ class Internal_Tweet {
 	function get_time()
 	{
 		return $this->time;
+	}
+
+	// geter method for tags
+	function get_tags() {
+		return $this->tags;
 	}
    
 } // end of class Internal_Tweet

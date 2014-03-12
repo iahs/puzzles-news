@@ -117,10 +117,15 @@
  
 					// Iterate over tweets.
 					foreach($get_tweets as $tweet) {
-						
+
 						$tweet_found = true;
 						$tweet_count++;
 						$tweet_desc = $tweet->text;
+						$tweet_entities = $tweet->entities;
+						$tweet_tags = [];
+						if ($tweet_entities) {
+							$tweet_tags = $tweet_entities->hashtags;
+						}
 
 							// Convert Tweet display time to a UNIX timestamp. Twitter timestamps are in UTC/GMT time.
 						$tweet_time = strtotime($tweet->created_at);	
@@ -155,7 +160,7 @@
 						$twitter_html .= $twitter_user_id.",".html_entity_decode($tweet_desc).",".$display_time."\n";
 
 						// Store as an object
-						$tweet = new Internal_Tweet($tweet->id, $tweet_desc, $tweet_time);
+						$tweet = new Internal_Tweet($tweet->id, $tweet_desc, $tweet_time, $tweet_tags);
 						array_push($tweets_array, $tweet);
  
 					}
