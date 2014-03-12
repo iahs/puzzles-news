@@ -29,6 +29,12 @@ angular.module('authService', [])
             $state.go('user.login');
         })
 
+        // Listen for the http interceptor
+        $rootScope.$on('auth:forbidden', function () {
+            console.log("Unauthorized");
+            $state.go('posts.list');
+        })
+
         /*
          * The getAuth function queries the server for current session data
          * @return promise for auth object
@@ -39,6 +45,10 @@ angular.module('authService', [])
                 // Just query the server when necessary
                 $http.get(authUrl + 'show').success(function (response) {
                     auth.user = response['data'];
+
+                    auth.isAdmin = auth.user['role'] > 2;
+                    auth.isEditor = auth.user['role'] > 1;
+
                     deferred.resolve(auth);
                 });
             } else {

@@ -29,7 +29,8 @@
             <div class="pure-menu pure-menu-open">
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
-                <li><a ui-sref="user.login">Login</a></li>
+                <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
+                <li ng-show="auth.isAdmin">{{ auth.user.role }}</li>
                 {{ auth.user.first_name || auth.user.cs50fullname }}
             </div>
         </div>
@@ -66,10 +67,12 @@
     <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
+    <script src="js/services/rssFeedService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/tweetCtrl.js"></script>
+    <script src="js/controllers/rssFeedCtrl.js"></script>
 
 </body>
 </html>

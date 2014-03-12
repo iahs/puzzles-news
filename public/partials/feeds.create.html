@@ -1,0 +1,18 @@
+<form ng-submit="createFeed()" class="pure-form pure-form-stacked">
+
+    <!-- TODO: Handle validation messages from the server -->
+    <fieldset>
+        <legend>Add a new Rss Feed</legend>
+        <label for="title">Title</label>
+        <input ng-model="newFeed.title" id="title" type="text" required/>
+
+        <label for="body">Website</label>
+        <textarea ng-model="newFeed.website" id="body" required></textarea>
+
+        <label for="permalink">Permalink</label>
+        <textarea ng-model="newFeed.permalink" id="permalink" required></textarea>
+    </fieldset>
+
+    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+
+</form>

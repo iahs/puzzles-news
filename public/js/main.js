@@ -3,8 +3,10 @@ var newsApp = angular.module('newsApp', [
     'postCtrl',
     'userCtrl',
     'menuCtrl',
+    'rssFeedCtrl',
     'postService',
     'authService',
+    'rssFeedService',
     'tweetCtrl',
     'newsAppFilters',
     'angularSlideables'
@@ -49,6 +51,15 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/profile",
             controller:"UserController",
             templateUrl: "partials/user.edit.html"
+        })
+        .state('feeds', {
+            abstract: true,
+            templateUrl: "partials/feeds.html"
+        })
+        .state('feeds.create', {
+            url: "/feeds/add",
+            templateUrl: "partials/feeds.create.html",
+            controller: 'RssFeedController'
         })
 });
 

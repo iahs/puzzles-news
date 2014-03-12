@@ -42,11 +42,19 @@ Route::group(array('prefix' => 'api'), function () {
     Route::resource('posts', 'PostsController',
         array('only' => array('index', 'store', 'destroy'))
     );
+
+    Route::resource('rssfeeds', 'RssFeedsController',
+        array('only' => array('index', 'store', 'destroy'))
+    );
+
     // Infinite scrolling
     Route::get('posts/infinite', 'PostsController@infinite');
 
     // Tags
-    Route::get('tags', 'TagsController@index');
+    Route::get('tags', [
+        'before' => 'adminRequired',
+        'uses' => 'TagsController@index',
+        ]);
 
     // Click tracking
     Route::post('posts/click', 'PostsController@click');

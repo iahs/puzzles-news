@@ -111,7 +111,7 @@ angular.module('postCtrl', [])
 
             Post.infiniteLoader(0, 15, $scope.search.query, $scope.tagIds)
                 .success(function(response) {
-                    $scope.posts = response.data && response.data.length>0 ? response.data : [{title: "No matches"}];
+                    $scope.posts = response.data && response.data.length>0 ? response.data : [{title: "No matches", body: ""}];
                     var pos = 0;
                     for (var i=0; i<$scope.posts.length; i++) {
                         $scope.posts[i].pos = pos++;

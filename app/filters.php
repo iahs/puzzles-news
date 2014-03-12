@@ -78,3 +78,31 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Authorization Filters
+|--------------------------------------------------------------------------
+| Only let certain users have access to a resource.
+| Roles are stored as an int in the users table
+| 1 - default for users
+| 2 - editor access (faculty, etc)
+| 3 - admin
+*/
+Route::filter('adminRequired', function()
+{
+    if( !Auth::check() or Auth::user()->role < 3) {
+        return Response::json([
+            "message" => "You are not authorized to access this resource"
+        ], 403);
+    }
+});
+
+Route::filter('editorRequired', function()
+{
+    if( !Auth::check() or Auth::user()->role < 2) {
+        return Response::json([
+            "message" => "You are not authorized to access this resource"
+        ], 403);
+    }
+});
