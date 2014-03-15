@@ -24,6 +24,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'cs50id');
 
+    public function toArray() {
+        $array = parent::toArray();
+        $tweeter = Tweeter::find($this->tweeter_id);
+        if($tweeter) {
+           $array['handle'] = $tweeter->handle;
+         }
+        return $array;
+    }
+
 	/**
 	 * Get the unique identifier for the user.
 	 *

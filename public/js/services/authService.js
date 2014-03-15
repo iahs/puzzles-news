@@ -72,6 +72,7 @@ angular.module('authService', [])
                     $state.go('posts.list');
                 }).error(function (response) {
                     console.log("Signup failed");
+                    $rootScope.error = response['errors'];
                 });
             },
             updateProfile: function (user) {

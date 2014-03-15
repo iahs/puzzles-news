@@ -1,5 +1,9 @@
 angular.module('userCtrl', [])
     .controller('UserController', function($scope, $http, $state, Auth) {
+        Auth.getAuth().then(function (auth) {
+            $scope.auth = auth;
+        });
+
         $scope.credentials = {};
 
         $scope.newUser = {};
@@ -15,5 +19,8 @@ angular.module('userCtrl', [])
         $scope.logout = function() {
             Auth.logout();
         }
-    });
 
+        $scope.updateProfile = function() {
+            Auth.updateProfile($scope.auth.user);
+        }
+    });

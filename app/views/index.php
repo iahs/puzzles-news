@@ -30,8 +30,11 @@
                 <a class="pure-menu-heading" href="#">Puzzles</a>
                 <li><a ui-sref="posts.list">List posts</a></li>
                 <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
-                <li ng-show="auth.isAdmin">{{ auth.user.role }}</li>
+                <li ng-show="auth.isAdmin">You are admin</li>
                 {{ auth.user.first_name || auth.user.cs50fullname }}
+                <li ng-show="auth.user"><a ui-sref="user.edit">Edit account</a></li>
+                <li ng-show="auth.user"><a href="#" ng-click="logout()">Logout</a></li>
+
             </div>
         </div>
 
