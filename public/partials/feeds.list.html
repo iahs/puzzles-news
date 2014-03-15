@@ -1,0 +1,12 @@
+<p>
+    <a ui-sref="feeds.create" class="pure-button pure-button-primary">Add a new RSS feed</a>
+</p>
+
+<div ng-repeat="feed in feeds" id="feed-{feed.id}">
+    <h1>{{ feed.title }}</h1>
+    <ul>
+        <li>Permalink: {{ feed.permalink }}</li>
+        <li>Website: <a ng-href="{{ feed.website }}">{{ feed.website }}</a></li>
+    </ul>
+    <button class="pure-button" ng-click="deleteFeed(feed.id)">Remove feed</button>
+</div>

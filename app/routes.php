@@ -51,10 +51,7 @@ Route::group(array('prefix' => 'api'), function () {
     Route::get('posts/infinite', 'PostsController@infinite');
 
     // Tags
-    Route::get('tags', [
-        'before' => 'adminRequired',
-        'uses' => 'TagsController@index',
-        ]);
+    Route::get('tags', 'TagsController@index');
 
     // Click tracking
     Route::post('posts/click', 'PostsController@click');

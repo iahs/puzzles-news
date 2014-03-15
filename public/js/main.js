@@ -61,6 +61,11 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/feeds.create.html",
             controller: 'RssFeedController'
         })
+        .state('feeds.list', {
+            url: "/feeds",
+            templateUrl: "partials/feeds.list.html",
+            controller: 'RssFeedController'
+        })
 });
 
 /*

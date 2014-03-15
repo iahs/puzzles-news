@@ -1,6 +1,10 @@
 angular.module('rssFeedCtrl', [])
     .controller('RssFeedController', function($scope, $http, $state, RssFeed) {
 
+        RssFeed.get().success(function (response) {
+            $scope.feeds = response['data'];
+        });
+
         // Create a new rss feed
         $scope.createFeed = function() {
             console.log("creating feed")
@@ -17,12 +21,13 @@ angular.module('rssFeedCtrl', [])
         };
 
         // Delete a feed
-        $scope.deletePost = function(id) {
+        $scope.deleteFeed = function(id) {
+            console.log("deleting" + id)
             RssFeed.destroy(id)
                 .success(function(data) {
                     RssFeed.get()
-                        .success(function(getResponse) {
-                            $scope.posts = getResponse.data;
+                        .success(function(response) {
+                            $scope.posts = response['data'];
                         });
                 });
         };

@@ -2,6 +2,16 @@
 
 class RssFeedsController extends BaseApiController {
 
+    /**
+     * Constructor
+     *
+     * Only editor and admin users may view or edit rss feeds
+     */
+    public function __construct()
+    {
+        $this->beforeFilter('editorRequired');
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -52,7 +62,11 @@ class RssFeedsController extends BaseApiController {
 	 */
 	public function destroy($id)
 	{
-		//
+        RssFeed::destroy($id);
+
+        return Response::json([
+            'message' => "Feed deleted"
+        ], 200);
 	}
 
 }
