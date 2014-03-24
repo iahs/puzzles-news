@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Response;
 class PostsController extends BaseApiController
 {
     /**
-     * @var Acme\Transformers\PostTransformerPostTransformer
+     * @var Helpers\Transformers\PostTransformer;
      */
     protected $postTransformer;
 
@@ -124,16 +124,16 @@ class PostsController extends BaseApiController
                 ->take($limit)
                 ->get();;
 
+            return Response::json([
+                'data' => $this->postTransformer->transformCollection($posts->toArray())
+            ], 200);
         } else {
-            // Error message if whereIn is used with empty array
-            // This query will always return empty, as no posts can have negative id
-            $posts = Post::where('id', '=', -1)->get();
+            // No more posts remaining
+            return Response::json([
+                'data' => [],
+                'message' => 'No more posts remaining'
+            ], 200);
         }
-
-        return Response::json([
-          'data' => $this->postTransformer->transformCollection($posts->toArray())
-        ], 200);
-
     }
 
     public function click()
