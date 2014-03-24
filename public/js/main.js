@@ -87,22 +87,18 @@ newsApp.config(function ($httpProvider) {
                 // Will only broadcast messages, and let the corresponding service deal with it
                 switch (rejection.status) {
                     case 401:
-                        if (rejection.config.url!=='#/login')
-                        {
+                        if (rejection.config.url!=='#/login') {
                             $rootScope.$broadcast('auth:loginRequired');
-                            break;
                         }
                         break;
                     case 403:
                         $rootScope.$broadcast('auth:forbidden');
                         break;
                     case 404:
-                        $rootScope
-                            .$broadcast('page:notFound');
+                        $rootScope.$broadcast('page:notFound');
                         break;
                     case 500:
-                        $rootScope
-                            .$broadcast('server:error');
+                        $rootScope.$broadcast('server:error');
                         break;
                 }
                 return $q.reject(rejection);
