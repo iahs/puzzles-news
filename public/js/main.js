@@ -28,11 +28,6 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/posts.list.html",
             controller: 'PostController'
         })
-        .state('posts.new', {
-            url: "/posts/new",
-            templateUrl: "partials/posts.new.html",
-            controller: 'PostController'
-        })
         .state('user', {
             abstract: true,
             templateUrl: "partials/user.html"
