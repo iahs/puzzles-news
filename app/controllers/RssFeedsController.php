@@ -61,9 +61,9 @@ class RssFeedsController extends BaseApiController {
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
-        RssFeed::destroy($id);
 
+        $feed = RssFeed::find( $id );
+        $feed->delete();
         return Response::json([
             'message' => "Feed deleted"
         ], 200);

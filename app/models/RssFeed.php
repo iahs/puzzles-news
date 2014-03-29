@@ -3,7 +3,7 @@
 class RssFeed extends Eloquent {
     # Available for mass assignment
     protected $fillable = array('title', 'website', 'permalink');
-
+    protected $softDelete = true;
     public $timestamps = false;
 
     public function post()
