@@ -1,6 +1,6 @@
 <form ng-submit="createFeed()" class="pure-form pure-form-stacked">
 
-    <!-- TODO: Handle validation messages from the server -->
+    <div class="error" ng-repeat="item in error">{{item}}</div>
     <fieldset>
         <legend>Add a new Rss Feed</legend>
         <label for="title">Title</label>

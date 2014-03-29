@@ -31,7 +31,6 @@ angular.module('authService', [])
 
         // Listen for the http interceptor
         $rootScope.$on('auth:forbidden', function () {
-            console.log("Unauthorized");
             $state.go('posts.list');
         })
 
@@ -71,7 +70,6 @@ angular.module('authService', [])
                     $rootScope.$broadcast('auth:login', response['data']); // A new user is automatically signed in
                     $state.go('posts.list');
                 }).error(function (response) {
-                    console.log("Signup failed");
                     $rootScope.error = response['errors'];
                 });
             },
@@ -97,7 +95,6 @@ angular.module('authService', [])
                     $rootScope.$broadcast('auth:login', response['data']);
                     $state.go('posts.list');
                 }).error(function (response) {
-                    console.log("Login failed");
                     $rootScope.error = response['errors'];
                 });
             },

@@ -6,27 +6,24 @@ angular.module('rssFeedCtrl', [])
         });
 
         // Create a new rss feed
-        $scope.createFeed = function() {
-            console.log("creating feed")
+        $scope.createFeed = function () {
             RssFeed.save($scope.newFeed)
-                .success(function(response) {
+                .success(function (response) {
                     RssFeed.get()
                         .success(function(getData) {
                             $state.go('posts.list');
                         });
-                })
-                .error(function(response) {
-                    console.log(response);
+                }).error(function (response) {
+                    $rootScope.error = response['errors'];
                 });
         };
 
         // Delete a feed
-        $scope.deleteFeed = function(id) {
-            console.log("deleting" + id)
+        $scope.deleteFeed = function (id) {
             RssFeed.destroy(id)
-                .success(function(data) {
+                .success(function (data) {
                     RssFeed.get()
-                        .success(function(response) {
+                        .success(function (response) {
                             $scope.posts = response['data'];
                         });
                 });

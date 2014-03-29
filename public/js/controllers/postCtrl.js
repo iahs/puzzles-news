@@ -68,21 +68,6 @@ angular.module('postCtrl', [])
                 });
         };
 
-        // Create a new post
-        $scope.submitPost = function() {
-            Post.save($scope.postData)
-                .success(function(response) {
-                    Post.get()
-                        .success(function(getData) {
-                            $scope.posts = getData;
-                            $state.go('posts.list');
-                        });
-                })
-                .error(function(response) {
-                    console.log(response);
-                });
-        };
-
         // Delete a post
         $scope.deletePost = function(id) {
             Post.destroy(id)
