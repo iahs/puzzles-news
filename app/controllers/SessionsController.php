@@ -34,7 +34,7 @@ class SessionsController extends \BaseApiController {
     {
         $credentials = Input::json('data');
 
-        If ( $credentials && Auth::attempt($credentials) ) {
+        If ( Auth::attempt($credentials) ) {
 
 
             # For some unexplainable reason, logging in the user a second time and then returning status code 201
