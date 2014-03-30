@@ -106,3 +106,12 @@ Route::filter('editorRequired', function()
         ], 403);
     }
 });
+
+Route::filter('userRequired', function()
+{
+    if( !Auth::check()) {
+        return Response::json([
+            "message" => "You must sign in to access this resource"
+        ], 401);
+    }
+});

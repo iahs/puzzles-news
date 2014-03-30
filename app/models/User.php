@@ -15,7 +15,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
-    protected $fillable = array('cs50id', 'cs50fullname', 'cs50email');
+    protected $fillable = array('cs50id', 'cs50fullname', 'cs50email', 'first_name', 'last_name');
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -84,8 +84,33 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * Set a twitter handle for the user.
+     * Will either create or override existing handle
+     * @param $handle
+     */
+    public function setTwitterHandle($handle) {
+
+        if ($this->tweeter_id) {
+            // Update existing tweeter
+            $tweeter = Tweeter::find($this->tweeter_id);
+            $tweeter->handle = $handle;
+            $tweeter->save();
+        }
+        else {
+            // Create new tweeter
+            $tweeter = new Tweeter;
+            $tweeter->name = $this->last_name ? $this->first_name . ' ' . $this->last_name : $this->cs50fullname;
+            $tweeter->handle = $handle;
+            $tweeter->save();
+            $this->tweeter_id = $tweeter->id;
+        }
+        // For consistency, since tweeter already saved
+        $this->save();
+    }
+
+    /**
      * Return a validator for the user model
-     *
+     * Used for signup
      * @param $input
      * @return Validator
      */
@@ -93,11 +118,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         $rules = array(
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required'
         );
 
         return Validator::make($input, $rules);
+    }
 
+    public static function updateValidator($input, $user) {
+
+        $rules = array(
+            // allow user to keep their current email
+            'email' => 'required|email|unique:users,email,' . $user->id ,
+            'first_name' => 'required',
+            'last_name' => 'required'
+        );
+
+        return Validator::make($input, $rules);
     }
 
 }

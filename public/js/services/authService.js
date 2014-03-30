@@ -80,6 +80,10 @@ angular.module('authService', [])
                     data: {
                         data: user
                     }
+                }).success(function(response) {
+                    auth.user = response['data']; // Update the user data locally too
+                }).error(function (response) {
+                    $rootScope.error = response['errors'];
                 });
             },
 
