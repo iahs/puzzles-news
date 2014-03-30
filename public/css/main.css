@@ -40,7 +40,7 @@ a {
  }
 
 aside {
-    background: #A51C30;
+    background: #393838;
     padding: 0.3em 1em;
     border-radius: 3px;
     color: #fff;
@@ -79,6 +79,11 @@ aside {
 .button-secondary {
     background: rgb(66, 184, 221); /* this is a light blue */
 }
+
+.button-primary {
+            background-color: #A51C30;
+            color: #fff
+        }
 
 .button-xsmall {
     font-size: 70%;
