@@ -60,7 +60,7 @@ class RssFeedsController extends BaseApiController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id) {
 
         $feed = RssFeed::find( $id );
         $feed->delete();

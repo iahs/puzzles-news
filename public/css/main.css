@@ -1,10 +1,6 @@
-input.ng-invalid {
-    border: 1px solid red;
-}
-input.ng-valid {
-    border: 1px solid green;
-}
-
+/****************
+ * Layout classes
+****************/
 aside {
     background: #A51C30;
     padding: 0.3em 1em;
@@ -15,8 +11,73 @@ aside {
     text-align: center;
 }
 
+.padded {
+    padding: 0.3em 1em;
+}
+
 .l-box {
     padding: 1em;
+}
+
+.truncated-post:hover {
+    background: #EEE;
+}
+
+.error {
+    background: #f5ab9e;
+    color: #8c3a2b;
+}
+
+/****************
+ * Link styling
+****************/
+a {
+  color:inherit;
+  text-decoration: none;
+ }
+ a:hover {
+    text-decoration: underline;
+ }
+
+aside {
+    background: #A51C30;
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.hero {
+    padding: 20px;
+    text-align: center;
+}
+
+
+/****************
+ * Button styling
+****************/
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
 }
 
 .button-xsmall {
@@ -35,20 +96,12 @@ aside {
     font-size: 125%;
 }
 
-.truncated-post:hover {
-    background: #EEE;
+/****************
+ * Form styling
+****************/
+input.ng-invalid {
+    border: 1px solid red;
 }
-
-.error {
-    background: #f5ab9e;
-    color: #8c3a2b;
+input.ng-valid {
+    border: 1px solid green;
 }
-
-a {
-  color:inherit;
-  text-decoration: none;
- }
- a:hover {
-    text-decoration: underline;
- }
-

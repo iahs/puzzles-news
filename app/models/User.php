@@ -27,6 +27,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function toArray() {
         $array = parent::toArray();
         $tweeter = Tweeter::find($this->tweeter_id);
+        $array['gravatar'] = $this->getGravatarHash();
         if($tweeter) {
            $array['handle'] = $tweeter->handle;
          }
@@ -62,6 +63,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+
+
+    /**
+     * Create gravatar url from the users email
+     * Use the private email if available, otherwise the
+     * cs50id email
+     * @return string
+     */
+    private function getGravatarHash()
+    {
+        if ($this->email) {
+            $email = $this->email;
+        } else {
+            $email = $this->cs50email;
+        }
+        $email = trim($email);
+        $email = strtolower($email);
+        return md5($email);
+    }
 
     /**
      * Return a validator for the user model

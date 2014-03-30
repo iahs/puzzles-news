@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    <title>PureCSS</title>
+    <title>News Puzzles</title>
 
     <link rel="stylesheet" href="bower_components/pure/pure-min.css">
     <!--[if lte IE 8]>
@@ -32,9 +32,12 @@
                 <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
                 <li ng-show="auth.isEditor"><a ui-sref="feeds.list">Manage RSS</a></li>
                 <li ng-show="auth.user"><a ui-sref="user.edit">Edit account</a></li>
+                <p ng-show="auth.user" style="text-align: center">
+                    <img src="http://www.gravatar.com/avatar/{{ auth.user.gravatar }}" alt="Gravatar" title="Edit your profile picture at gravatar.com" />
+                    <br/>
+                    You are signed in as {{ auth.user.first_name || auth.user.cs50fullname }}
+                </p>
                 <li ng-show="auth.user"><a href="#" ng-click="logout()">Logout</a></li>
-                <p>You are signed in as {{ auth.user.first_name || auth.user.cs50fullname }}</p>
-
             </div>
         </div>
 
