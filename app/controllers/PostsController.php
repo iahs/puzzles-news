@@ -110,6 +110,15 @@ class PostsController extends BaseApiController
 
     }
 
+    public function popular()
+    {
+        $postIds = $this->post->getPopular();
+        $posts = Post::whereIn('id', $postIds)->get();
+        return Response::json([
+            'data' => $this->postTransformer->transformCollection($posts->toArray())
+        ], 200);
+    }
+
     public function click()
     {
         $id = Input::get('id');

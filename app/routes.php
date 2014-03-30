@@ -50,6 +50,9 @@ Route::group(array('prefix' => 'api'), function () {
     // Infinite scrolling
     Route::get('posts/infinite', 'PostsController@infinite');
 
+    // Popular posts
+    Route::get('posts/popular', 'PostsController@popular');
+
     // Tags
     Route::get('tags', 'TagsController@index');
 

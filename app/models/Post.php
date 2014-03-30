@@ -97,4 +97,19 @@ class Post extends Eloquent
             ->take($limit)
             ->get();
     }
+
+    public function getPopular($clickedAfter=0, $limit=20) {
+        $date = date('Y-m-d', $clickedAfter);
+        $clicks = Click::select('post_id')->orderBy(DB::raw("SUM(IF(date>=$date,clicks,0))"))
+            ->groupBy('post_id')
+            ->take($limit)
+            ->get();
+
+        // Convert array of stdObj to an integer array
+        $postIds = [];
+        foreach ($clicks as $click) {
+            array_push($postIds, $click->post_id);
+        }
+        return $postIds;
+    }
 }
