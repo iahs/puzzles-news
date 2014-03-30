@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    <title>PureCSS</title>
+    <title>Harvard News Aggregator - Team Puzzles</title>
 
     <link rel="stylesheet" href="bower_components/pure/pure-min.css">
     <!--[if lte IE 8]>
@@ -27,14 +27,14 @@
         </a>
         <div id="menu" ng-controller="MenuController">
             <div class="pure-menu pure-menu-open">
-                <a class="pure-menu-heading" href="#">Puzzles</a>
-                <li><a ui-sref="posts.list">List posts</a></li>
+                <a class="pure-menu-heading" href="#" ng-click="clearQuery()">Puzzles</a>
+                <li><a ui-sref="posts.list" ng-click="clearQuery()">List posts</a></li>
+                <li><a ui-sref="posts.popular">Popular posts</a></li>
                 <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
                 <li ng-show="auth.isEditor"><a ui-sref="feeds.list">Manage RSS</a></li>
                 <li ng-show="auth.user"><a ui-sref="user.edit">Edit account</a></li>
                 <li ng-show="auth.user"><a href="#" ng-click="logout()">Logout</a></li>
-                <p>You are signed in as {{ auth.user.first_name || auth.user.cs50fullname }}</p>
-
+                <p ng-show="auth.user">You are signed in as {{ auth.user.first_name || auth.user.cs50fullname }}</p>
             </div>
         </div>
 

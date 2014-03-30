@@ -104,9 +104,17 @@ angular.module('postCtrl', [])
                 });
         };
 
+        // Show all possts with tag when user clicks on tag rectangle
         $scope.showTag = function(tag) {
             $scope.search.query = '';
             $scope.queryTags = [tag];
             $scope.search();
         }
+
+        // Clear query and tag selection when user clicks "List posts" in menubar
+        $scope.$on('clearQuery', function(){
+            $scope.search.query = '';
+            $scope.queryTags = [];
+            $scope.search();
+        });
     })
