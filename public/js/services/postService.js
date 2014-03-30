@@ -19,6 +19,13 @@ angular.module('postService', [])
                 });
             },
 
+            getPopular: function() {
+                return $http({
+                    method: 'GET',
+                    url: postUrl + 'popular',
+                });
+            },
+
             save: function(postData) {
                 return $http({
                     method: 'POST',

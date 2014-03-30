@@ -3,14 +3,12 @@ angular.module('postCtrl', [])
         // CONFIG: max post length
         $scope.maxPostLength = 320;
 
+        // Object to hold data for the new post form
+        $scope.postData = {};
+
         // Tag stuff
         $scope.queryTags = [];
 
-        $http.get('/api/tags').success(function (response) {
-            $scope.tags = response['data'];
-        });
-
-        // TODO: make it work
         $scope.addQueryTag = function (tag) {
             var tag = $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
             $scope.queryTags.push(tag);
@@ -23,24 +21,43 @@ angular.module('postCtrl', [])
             $scope.search();
         };
 
-        // Object to hold data for the new post form
-        $scope.postData = {};
         var infiniteLoading = false;
 
-        // Get all the posts
-        Post.infiniteLoader(0, 15, '', '')
-            .success(function(response) {
-                $scope.posts = response.data;
-                var pos = 0;
-                for (var i=0; i<$scope.posts.length; i++) {
-                    $scope.posts[i].pos = pos++;
-                }
-                $(window).scroll(function () {
-                    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 300) {
-                      $scope.infiniteLoadMore();
+        if($state.is('posts.popular'))
+        {
+            // Get popular posts
+            Post.getPopular()
+                .success(function(response) {
+                    $scope.posts = response.data;
+                    var pos = 0;
+                    for (var i=0; i<$scope.posts.length; i++) {
+                        $scope.posts[i].pos = pos++;
                     }
                 });
+        }
+        else
+        {
+            // Load tag list
+            $http.get('/api/tags').success(function (response) {
+                $scope.tags = response['data'];
             });
+
+            // Get all the posts
+            Post.infiniteLoader(0, 15, '', '')
+                .success(function(response) {
+                    $scope.posts = response.data;
+                    var pos = 0;
+                    for (var i=0; i<$scope.posts.length; i++) {
+                        $scope.posts[i].pos = pos++;
+                    }
+                    // Bind for infinite scrolling
+                    $(window).scroll(function () {
+                        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 300) {
+                          $scope.infiniteLoadMore();
+                        }
+                    });
+                });
+        }
 
         // Load more posts
         $scope.infiniteLoadMore = function() {
