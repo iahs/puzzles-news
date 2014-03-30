@@ -24,7 +24,7 @@ angular.module('rssFeedCtrl', [])
                 .success(function (data) {
                     RssFeed.get()
                         .success(function (response) {
-                            $scope.posts = response['data'];
+                            $scope.feeds = response['data'];
                         });
                 });
         };

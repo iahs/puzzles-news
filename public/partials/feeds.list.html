@@ -1,6 +1,12 @@
-<p>
-    <a ui-sref="feeds.create" class="pure-button pure-button-primary">Add a new RSS feed</a>
-</p>
+<div class="hero">
+    <a ui-sref="feeds.create" class="pure-button button-success button-xlarge">Add a new RSS feed</a>
+</div>
+
+<aside>
+    <h3>Importing news from {{ feeds.length }} feeds</h3>
+</aside>
+
+
 
 <div ng-repeat="feed in feeds" id="feed-{feed.id}">
     <h1>{{ feed.title }}</h1>
@@ -8,5 +14,5 @@
         <li>Permalink: {{ feed.permalink }}</li>
         <li>Website: <a ng-href="{{ feed.website }}">{{ feed.website }}</a></li>
     </ul>
-    <button class="pure-button" ng-click="deleteFeed(feed.id)">Remove feed</button>
+    <button class="pure-button button-warning" ng-click="deleteFeed(feed.id)">Remove feed</button>
 </div>
