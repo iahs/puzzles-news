@@ -53,7 +53,7 @@
 
                 <ul>
                     <li ng-repeat="tweet in tweets">
-                        {{ tweet.content }}
+                        {{ tweet.tweeter_id + ": " + tweet.text }}
                     </li>
                     <button ng-click="addTweet()">Add tweet</button>
                 </ul>
@@ -74,6 +74,7 @@
     <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
+    <script src="js/services/tweetService.js"></script>
     <script src="js/services/rssFeedService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>

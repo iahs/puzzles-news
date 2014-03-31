@@ -87,7 +87,7 @@ class ImportTweets extends Command
                 ),
                 array(
                     'id'		=> 'required|unique:tweets',
-                    'text'		=> 'required|unique:tweets',
+                    'text'		=> 'required',
                 )
             );
 
@@ -95,16 +95,28 @@ class ImportTweets extends Command
                 return;
             }
 
-            $tweet = new Tweet(array(
+            $t = new Tweet(array(
                 'id'	=> $tweet->get_id(),
                 'text' 	=> $text,
                 'tweet_time' => $tweet->get_time(),
             ));
 
-            $tweet->tweeter()->associate($tweeter);
-            $tweet->save();
+            $t->tweeter()->associate($tweeter);
+            $t->save();
 
             $tweeterCounter++;
+
+            if ($tweet->get_tags()) {
+                foreach($tweet->tags as $tag) {
+
+                    print $tag->text;
+                    $tag = Tag::firstOrCreate(array('name' => $tag->text));
+                    $tag->tweets()->attach($tweet->get_id());
+                    $tag->save();
+
+                }
+            }
+            
         }
 
         echo "Imported $tweeterCounter tweets\n";

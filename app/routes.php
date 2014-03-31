@@ -62,6 +62,8 @@ Route::group(array('prefix' => 'api'), function () {
     Route::resource('users', 'UsersController',
         array('only' => array('store','update'))
     );
+
+    Route::get('tweets', 'TweetsController@index');
 });
 /*
 |--------------------------------------------------------------------------

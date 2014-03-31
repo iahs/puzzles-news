@@ -1,10 +1,8 @@
 angular.module('tweetCtrl', [])
-    .controller('TweetController', function($scope) {
-
-        $scope.tweets = [
-            {content: "Tweet 1"},
-            {content: "Tweet 2"}
-        ];
-
+    .controller('TweetController', function($scope, Tweet) {
+		$scope.tweets = [];
+        Tweet.get()
+            .success(function(response) {
+                $scope.tweets = response.data;
+            });
     });
-

@@ -127,7 +127,7 @@
 							$tweet_tags = $tweet_entities->hashtags;
 						}
 
-							// Convert Tweet display time to a UNIX timestamp. Twitter timestamps are in UTC/GMT time.
+						// Convert Tweet display time to a UNIX timestamp. Twitter timestamps are in UTC/GMT time.
 						$tweet_time = strtotime($tweet->created_at);	
 						if ($twitter_style_dates){
 						// Current UNIX timestamp.
