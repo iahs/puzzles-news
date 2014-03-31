@@ -10,13 +10,13 @@ angular.module('postCtrl', [])
         $scope.queryTags = [];
 
         $scope.addQueryTag = function (tag) {
-            var tag = $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
+            $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
             $scope.queryTags.push(tag);
             $scope.search();
         };
 
         $scope.removeQueryTag = function (tag) {
-            var tag = $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
+            $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
             $scope.tags.push(tag);
             $scope.search();
         };
@@ -37,9 +37,15 @@ angular.module('postCtrl', [])
         }
         else
         {
+            // Shuffle tag list here so order is the same within but not across loads
+            var shuffle = function(o) {
+                for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+                    return o;
+            };
+
             // Load tag list
             $http.get('/api/tags').success(function (response) {
-                $scope.tags = response['data'];
+                $scope.tags = shuffle(response['data']);
             });
 
             // Get all the posts
@@ -55,6 +61,15 @@ angular.module('postCtrl', [])
                         if ($(window).scrollTop() >= $(document).height() - $(window).height() - 300) {
                           $scope.infiniteLoadMore();
                         }
+                    });
+                    // Add clear button (X) to search fields
+                    function tog(v){return v?'addClass':'removeClass';}
+                    $(document).on('input', '.clearable', function(){
+                        $(this)[tog(this.value)]('x');
+                    }).on('mousemove', '.x', function( e ){
+                        $(this)[tog(this.offsetWidth-18 < e.clientX-this.getBoundingClientRect().left)]('onX');
+                    }).on('click', '.onX', function(){
+                        $(this).removeClass('x onX').val('').trigger('change');
                     });
                 });
         }
@@ -121,17 +136,23 @@ angular.module('postCtrl', [])
                 });
         };
 
-        // Show all possts with tag when user clicks on tag rectangle
-        $scope.showTag = function(tag) {
+        // Clear query and tag selection
+        var clearQuery = function() {
             $scope.search.query = '';
-            $scope.queryTags = [tag];
-            $scope.search();
+            $.merge($scope.tags, $scope.queryTags);
+            $scope.queryTags = [];
         }
 
-        // Clear query and tag selection when user clicks "List posts" in menubar
+        // Show all possts with tag when user clicks on tag rectangle
+        $scope.showTag = function(tag) {
+            clearQuery();
+            $scope.addQueryTag(tag);
+            console.log(tag);
+        }
+
+        // Clear query when user clicks "List posts" in menubar
         $scope.$on('clearQuery', function(){
-            $scope.search.query = '';
-            $scope.queryTags = [];
+            clearQuery();
             $scope.search();
         });
     })
