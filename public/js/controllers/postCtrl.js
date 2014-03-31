@@ -121,17 +121,22 @@ angular.module('postCtrl', [])
                 });
         };
 
-        // Show all possts with tag when user clicks on tag rectangle
-        $scope.showTag = function(tag) {
+        // Clear query and tag selection
+        var clearQuery = function() {
             $scope.search.query = '';
-            $scope.queryTags = [tag];
-            $scope.search();
+            $.merge($scope.tags, $scope.queryTags);
+            $scope.queryTags = [];
         }
 
-        // Clear query and tag selection when user clicks "List posts" in menubar
+        // Show all possts with tag when user clicks on tag rectangle
+        $scope.showTag = function(tag) {
+            clearQuery();
+            $scope.addQueryTag(tag);
+        }
+
+        // Clear query when user clicks "List posts" in menubar
         $scope.$on('clearQuery', function(){
-            $scope.search.query = '';
-            $scope.queryTags = [];
+            clearQuery();
             $scope.search();
         });
     })
