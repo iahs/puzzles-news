@@ -33,7 +33,7 @@
                 <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
                 <li ng-show="auth.isEditor"><a ui-sref="feeds.list">Manage RSS</a></li>
                 <li ng-show="auth.user"><a ui-sref="user.edit">Edit account</a></li>
-                <p ng-show="auth.user" style="text-align: center">
+                <p ng-show="auth.user" style="text-align: center" class="ng-hide">
                     <img src="http://www.gravatar.com/avatar/{{ auth.user.gravatar }}" alt="Gravatar" title="Edit your profile picture at gravatar.com" />
                     <br/>
                     You are signed in as {{ auth.user.first_name || auth.user.cs50fullname }}
@@ -49,7 +49,6 @@
             </div>
 
             <div id="sidebar" ng-controller="TweetController" class="pure-u-1-4 pure-hidden-phone">
-
 
                 <div class="side-panel-twitter">
 

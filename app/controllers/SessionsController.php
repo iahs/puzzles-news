@@ -9,51 +9,61 @@ class SessionsController extends \BaseApiController {
     }
 
     /**
-     * Create a new session when a user logs in with username and password
-     * For standard post requests, now angular json format
-     * @return Responses
+     * Sign in user with provided credentials
+     *
+     * @return Response
      */
     public function store()
-    {
-        $credentials = ['email' => Input::get('email'), 'password' => Input::get('password')];
-
-        If ( $credentials && Auth::attempt($credentials) ) {
-           return Redirect::to('/')->with('message', 'Login success');
-        }
-
-        else {
-            return Response::json([
-                'errors' => 'Incorrect email or password',
-                'debug' => $credentials,
-                'message' => 'Incorrect email or password'
-            ], 401);
-        }
-    }
-
-    public function apiLogin()
     {
         $credentials = Input::json('data');
 
         If ( Auth::attempt($credentials) ) {
-
-
-            # For some unexplainable reason, logging in the user a second time and then returning status code 201
-            # makes the login work
-            # TODO: find out why - result: it is not necessary after all. Weird
-            # $user = Auth::getUser($credentials);
-            # Auth::login($user);
             return Response::json([
                 'data' => Auth::user()->toArray(),
                 'message' => 'You are now signed in'
             ], 200);
         }
-
         else {
             return Response::json([
                 'errors' => 'Incorrect email or password',
                 'message' => 'Incorrect email or password'
             ], 401);
         }
+    }
+
+    /**
+     * Check if a user is signed in
+     * If true, return user data and role
+     * @return Response
+     */
+    public function show()
+    {
+        if (Auth::check())
+        {
+            return Response::json([
+                'authenticated' => true,
+                'data' => Auth::user()->toArray()
+            ], 200);
+        } else {
+            return Response::json([
+                'authenticated' => false,
+                'data' => [],
+                'message' => 'Not authenticated',
+                'errors' => ['authentication' => 'Not authenticated']
+            ], 200);
+        }
+
+    }
+    /**
+     * Destroy the current session
+     * This will log out the user
+     */
+    public function destroy()
+    {
+        Auth::logout();
+        return Response::json([
+            'message' => 'You are now signed out'
+        ], 201);
     }
 
     /**
@@ -92,42 +102,6 @@ class SessionsController extends \BaseApiController {
             // Not a valid login
             return "No user returned";
         }
-    }
-
-    /**
-     * Check if a user is signed in
-     * If true, return user data and role
-     * Otherwise, return 401 error message
-     * @return Response
-     */
-    public function show()
-    {
-        if (Auth::check())
-        {
-            return Response::json([
-                'authenticated' => true,
-                'data' => Auth::user()->toArray()
-            ], 200);
-        } else {
-            return Response::json([
-                'authenticated' => false,
-                'data' => [],
-                'message' => 'Not authenticated',
-                'errors' => ['authentication' => 'Not authenticated']
-            ], 200);
-        }
-
-    }
-    /**
-     * Destroy the current session
-     * This will log out the user
-     */
-    public function destroy()
-    {
-        Auth::logout();
-        return Response::json([
-            'message' => 'You are now signed out'
-        ], 201);
     }
 
 }

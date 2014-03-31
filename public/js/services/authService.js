@@ -89,7 +89,7 @@ angular.module('authService', [])
 
             login: function(credentials) {
                 return $http({
-                    url: '/session/apilogin',
+                    url: '/session/',
                     method: 'POST',
                     data: {
                         data: credentials
