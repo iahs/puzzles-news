@@ -67,10 +67,6 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/feeds.list.html",
             controller: 'RssFeedController'
         })
-        .state('twitterfeed', {
-            url: "/posts",
-            templateUrl: "partials/twitterfeed.html",
-        })
 });
 
 /*
