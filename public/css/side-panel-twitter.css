@@ -1,5 +1,6 @@
 .side-panel-twitter {
     float:right;
+    width: 350px;
     margin-right:5px;
     clear:both;
 }
