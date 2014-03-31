@@ -70,8 +70,6 @@
                     </script>
                 </div>
 
-                <twitter-feed></twitter-feed>
-
             </div>
         </div>
 
