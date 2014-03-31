@@ -1,5 +1,6 @@
 <!-- <form class="pure-form pure-form-aligned" action="/session" method="post"> -->
 <form class="pure-form pure-form-aligned" ng-submit="login()">
+    <div class="error" ng-if="error">{{error}}</div>
     <fieldset>
         <div class="pure-control-group">
             <label for="email">Email</label>

@@ -3,8 +3,10 @@ var newsApp = angular.module('newsApp', [
     'postCtrl',
     'userCtrl',
     'menuCtrl',
+    'rssFeedCtrl',
     'postService',
     'authService',
+    'rssFeedService',
     'tweetCtrl',
     'newsAppFilters',
     'angularSlideables'
@@ -26,9 +28,9 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/posts.list.html",
             controller: 'PostController'
         })
-        .state('posts.new', {
-            url: "/posts/new",
-            templateUrl: "partials/posts.new.html",
+        .state('posts.popular', {
+            url: "/posts/popular",
+            templateUrl: "partials/posts.popular.html",
             controller: 'PostController'
         })
         .state('user', {
@@ -49,6 +51,20 @@ newsApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/profile",
             controller:"UserController",
             templateUrl: "partials/user.edit.html"
+        })
+        .state('feeds', {
+            abstract: true,
+            templateUrl: "partials/feeds.html"
+        })
+        .state('feeds.create', {
+            url: "/feeds/add",
+            templateUrl: "partials/feeds.create.html",
+            controller: 'RssFeedController'
+        })
+        .state('feeds.list', {
+            url: "/feeds",
+            templateUrl: "partials/feeds.list.html",
+            controller: 'RssFeedController'
         })
 });
 
@@ -71,22 +87,18 @@ newsApp.config(function ($httpProvider) {
                 // Will only broadcast messages, and let the corresponding service deal with it
                 switch (rejection.status) {
                     case 401:
-                        if (rejection.config.url!=='#/login')
-                        {
+                        if (rejection.config.url!=='#/login') {
                             $rootScope.$broadcast('auth:loginRequired');
-                            break;
                         }
                         break;
                     case 403:
                         $rootScope.$broadcast('auth:forbidden');
                         break;
                     case 404:
-                        $rootScope
-                            .$broadcast('page:notFound');
+                        $rootScope.$broadcast('page:notFound');
                         break;
                     case 500:
-                        $rootScope
-                            .$broadcast('server:error');
+                        $rootScope.$broadcast('server:error');
                         break;
                 }
                 return $q.reject(rejection);

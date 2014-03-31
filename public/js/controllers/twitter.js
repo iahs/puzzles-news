@@ -8,9 +8,6 @@ angular.module('twitterFeed', []).
                     js=d.createElement(s);js.id=id;
                     js.src="https://platform.twitter.com/widgets.js";
                     fjs.parentNode.insertBefore(js,fjs);
-
-                    console.log("ran");
-
                 }(document,"script","twitter-wjs");
             }
         };

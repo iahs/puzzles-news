@@ -42,8 +42,16 @@ Route::group(array('prefix' => 'api'), function () {
     Route::resource('posts', 'PostsController',
         array('only' => array('index', 'store', 'destroy'))
     );
+
+    Route::resource('rssfeeds', 'RssFeedsController',
+        array('only' => array('index', 'store', 'destroy'))
+    );
+
     // Infinite scrolling
     Route::get('posts/infinite', 'PostsController@infinite');
+
+    // Popular posts
+    Route::get('posts/popular', 'PostsController@popular');
 
     // Tags
     Route::get('tags', 'TagsController@index');

@@ -2,8 +2,11 @@
 
 class SessionsController extends \BaseApiController {
 
-    var $cs50_trust_root = "http://localhost:8000";
-    var $cs50_return_to = "http://localhost:8000/session/cs50return";
+    function __construct()
+    {
+        $this->cs50id_trust_root = Config::get('cs50id.trust_root');
+        $this->cs50id_return_to = Config::get('cs50id.return_to');
+    }
 
     /**
      * Create a new session when a user logs in with username and password
@@ -31,7 +34,7 @@ class SessionsController extends \BaseApiController {
     {
         $credentials = Input::json('data');
 
-        If ( $credentials && Auth::attempt($credentials) ) {
+        If ( Auth::attempt($credentials) ) {
 
 
             # For some unexplainable reason, logging in the user a second time and then returning status code 201
@@ -62,7 +65,7 @@ class SessionsController extends \BaseApiController {
     public function cs50login()
     {
         return Response::make('', 302)->header(
-            'location', CS50::getLoginUrl($this->cs50_trust_root, $this->cs50_return_to)
+            'location', CS50::getLoginUrl($this->cs50id_trust_root, $this->cs50id_return_to)
         );
     }
 
@@ -71,7 +74,7 @@ class SessionsController extends \BaseApiController {
      */
     public function cs50return()
     {
-        $response = CS50::getUser($this->cs50_return_to);
+        $response = CS50::getUser($this->cs50id_return_to);
         # TODO: REDIRECT TO LOGIN IF FAILED (e.g. reloading, cs50 error, ...)
         if ($response)
         {

@@ -1,0 +1,13 @@
+<div ng-repeat="post in posts" id="post-{{ post.id }}">
+    <h3>
+        <span ng-click="expandPost(post.id, post.pos)" slide-toggle="#full-post-{{post.id}}" ng-hide="post.expanded" class="truncated-post">{{ post.title | unescape }} ({{ post.clicks || 0 }})</span>
+        <a href="{{post.permalink}}" target="_blank" ng-click="expandPost(post.id, post.pos)" ng-show="post.expanded">{{ post.title | unescape }} ({{ post.clicks || 0 }})</a>
+    </h3>
+    <a ng-repeat="tag in post.tags" ng-click="showTag(tag)" class="pure-button button-xsmall">{{ tag.name }}</a>
+    <div ng-hide="post.expanded" ng-click="expandPost(post.id, post.pos)" class="truncated-post" slide-toggle="#full-post-{{post.id}}">
+        <p>{{ post.body | unescape | truncate:maxPostLength}}<i ng-if="post.body.length > maxPostLength">Click to expand</i></p>
+    </div>
+    <div id="full-post-{{post.id}}" class="slideable" duration=".5s">
+        <p>{{ post.body | unescape}}</p>
+    </div>
+</div>

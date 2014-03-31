@@ -1,9 +1,39 @@
+<form class="pure-form pure-form-aligned" ng-show="auth.user.cs50email">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="cs50email">cs50email</label>
+            <input id="cs50email" type="email" name="email" ng-model="auth.user.cs50email" disabled />
+        </div>
+        <div class="pure-control-group">
+            <label for="cs50name">cs50name</label>
+            <input id="cs50name" type="text" name="cs50name" ng-model="auth.user.cs50fullname" disabled />
+        </div>
+    </fieldset>
+</form>
+
 <form ng-submit="updateProfile()" class="pure-form pure-form-aligned">
     <fieldset>
         <div class="pure-control-group">
-            <label for="email">Associate Twitter handle</label>
-            <input id="handle" type="text" ng-model="auth.user.handle" />
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" ng-model="auth.user.email" required />
         </div>
+        <div class="pure-control-group">
+            <label for="handle">First name</label>
+            <input id="first_name" type="text" name="first_name" ng-model="auth.user.first_name" required />
+        </div>
+        <div class="pure-control-group">
+            <label for="last_name">Last name</label>
+            <input id="last_name" type="text" name="last_name" ng-model="auth.user.last_name" required />
+        </div>
+        <div class="pure-control-group">
+            <label for="handle">Twitter handle</label>
+            <input id="handle" type="text" name="handle" placeholder="Tweets are automatically imported" ng-model="auth.user.handle" />
+        </div>
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" ng-model="auth.user.password" placeholder="Leave blank to keep current password" />
+        </div>
+
         {{$scope.auth}}
         <div class="pure-controls">
             <button type="submit" class="pure-button pure-button-primary">Submit</button>

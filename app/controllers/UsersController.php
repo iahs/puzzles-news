@@ -2,6 +2,14 @@
 
 class UsersController extends BaseApiController {
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->beforeFilter('userRequired', array('only' => array('update')));
+    }
+
 	/**
 	 * Create a new user
 	 *
@@ -36,10 +44,10 @@ class UsersController extends BaseApiController {
         }
     }
 
-    public function update()
+    public function updateOld()
     {
         $user_data = Input::json('data');
-        if( ! $user_data || ! $user_data['id'] || ! Auth::check()){
+        if( ! $user_data || ! array_key_exists('id', $user_data) || ! Auth::check()){
             return Response::json([
                 'errors' => 'Invalid data or not authorized',
                 'message' => 'You are not allowed to perfom this operation'
@@ -60,5 +68,53 @@ class UsersController extends BaseApiController {
             $user->tweeter_id = $tweeter->id;
         }
         $user->save();
+    }
+
+    public function update()
+    {
+        // before_filter has already checked user is signed in
+        $user = Auth::user();
+
+        // update_data
+        $user_data = Input::json('data');
+
+        // check that current user matches id from form
+        if (! $user_data || !array_key_exists('id', $user_data) || $user_data['id'] != $user->id ) {
+            return Response::json([
+                'errors' => 'You are not allowed to update this user',
+                'message' => 'You are not allowed to update this user'
+            ]);
+        }
+
+        // Set twitter handle (and save that)
+        if (array_key_exists('handle', $user_data)) {
+            $user->setTwitterHandle($user_data['handle']);
+        }
+
+        if (array_key_exists('email', $user_data)) {
+            $user->email = $user_data['email'];
+        }
+
+        $validator = User::updateValidator($user_data, $user);
+        if ($validator->fails()) {
+            return Response::json([
+                'message' => "validation failed",
+                'errors' => $validator->messages()->toArray()
+            ], 402);
+        }
+
+        // Input valid
+        $user->update($user_data);
+
+        if (array_key_exists("password", $user_data)) {
+            $user->password = Hash::make($user_data['password']);
+        }
+
+        $user->save();
+
+        return Response::json([
+            'message' => "user updated",
+            'data' => $user->toArray()
+        ], 200);
     }
 }

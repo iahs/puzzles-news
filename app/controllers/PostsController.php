@@ -1,18 +1,27 @@
 <?php
 
 use Helpers\Transformers\PostTransformer;
-use Illuminate\Support\Facades\Response;
 
 class PostsController extends BaseApiController
 {
     /**
-     * @var Acme\Transformers\PostTransformerPostTransformer
+     * @var Helpers\Transformers\PostTransformer;
      */
     protected $postTransformer;
 
-    public function __construct(PostTransformer $postTransformer)
+    /**
+     * @var Post
+     */
+    protected $post;
+
+    /**
+     * @param PostTransformer $postTransformer
+     * @param Post $post
+     */
+    public function __construct(PostTransformer $postTransformer, Post $post)
     {
         $this->postTransformer = $postTransformer;
+        $this->post = $post;
     }
 
     /**
@@ -22,7 +31,7 @@ class PostsController extends BaseApiController
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = $this->post->all();
 
         return Response::json([
             'data' => $posts->toArray()
@@ -36,33 +45,19 @@ class PostsController extends BaseApiController
      */
     public function store()
     {
-        $input = Input::json()->all();
-        $v = Post::validate($input);
-
-        if ( $v->passes() ) {
-            $post = Post::create($input);
-
+        if (! $this->post->isValid($input = Input::json()->all()))
+        {
             return Response::json([
-                'data' => $post->toArray()
-            ], 201);
-
-        } else {
-            return Response::json([
-                'errors' => $v->messages()->toArray(),
+                'errors' => $this->post->errors->toArray(),
                 'message' => 'Validation failed'
-             ], 400);
+            ], 400);
         }
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int      $id
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
+        // validation passed
+        $post = $this->post->create($input);
+        return Response::json([
+            'data' => $post->toArray()
+        ], 201);
     }
 
     /**
@@ -89,51 +84,39 @@ class PostsController extends BaseApiController
      */
     public function infinite()
     {
-        $query = Input::get('query');
-        $tags = Input::get('tags');
+        $query = Input::get('query', "");
         $oldest = Input::get('oldest', 0) > 0 ? Input::get('oldest') : time();
         $oldest = date('Y-m-d H:i:s',$oldest);
-        $limit = Input::get('limit', 5);
+        $limit = Input::get('limit', 20);
 
         // Convert comma separated string to array of integer tag ids
-        $tagIds = array_map("intval", explode(",", $tags));
+        $tagStrings = array_filter(explode(',', Input::get('tags', '')));
+        $tagIds = array_map("intval", $tagStrings);
 
-        $idObjects = DB::table('tag_post')->join('posts', 'posts.id', '=', 'tag_post.post_id');
+        $postIds = $this->post->getIdsWithQueryTagsAndRelevance($query, $tagIds);
 
-        if (Input::has('query'))
-            $idObjects->whereRaw("MATCH(posts.title, posts.body) AGAINST(?)", array($query));
-        if (Input::has('tags'))
-            $idObjects->whereIn('tag_post.tag_id', $tagIds, 'and');
-            $idObjects->where('relevance', '>', '0.5');
-
-        // Get the ids of all posts that match the query and tag ids
-        $idObjects = $idObjects->select('posts.id as postid')->distinct()->get();
-
-        // Convert array of stdObj to an integer array for the wherein query
-        $postIds = [];
-        foreach ($idObjects as $post) {
-            if (! in_array($post->postid, $postIds))
-                array_push($postIds, $post->postid);
+        if (empty($postIds)) {
+            // No posts remaining
+            return Response::json([
+                'data' => [],
+                'message' => 'No more posts remaining'
+            ], 200);
         }
 
-        if (count($postIds)) {
-            // Find all posts that corresponds to the query string and supplied tag ids
-            $posts = Post::whereIn('id', $postIds, 'or')
-                ->orderBy('time_posted', 'desc')
-                ->where('time_posted', '<', $oldest)
-                ->take($limit)
-                ->get();;
-
-        } else {
-            // Error message if whereIn is used with empty array
-            // This query will always return empty, as no posts can have negative id
-            $posts = Post::where('id', '=', -1)->get();
-        }
-
+        $posts = $this->post->getForInfiniteByTime($postIds, $oldest, $limit);
         return Response::json([
-          'data' => $this->postTransformer->transformCollection($posts->toArray())
+            'data' => $this->postTransformer->transformCollection($posts->toArray())
         ], 200);
 
+    }
+
+    public function popular()
+    {
+        $postIds = $this->post->getPopular();
+        $posts = Post::whereIn('id', $postIds)->get();
+        return Response::json([
+            'data' => $this->postTransformer->transformCollection($posts->toArray())
+        ], 200);
     }
 
     public function click()

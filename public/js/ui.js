@@ -6,17 +6,16 @@
 
     function toggleClass(element, className) {
         var classes = element.className.split(/\s+/),
-            length = classes.length,
-            i = 0;
+            length = classes.length;
 
-        for(; i < length; i++) {
+        for(var i = 0; i < length; i++) {
             if (classes[i] === className) {
                 classes.splice(i, 1);
                 break;
             }
         }
         // The className is not found
-        if (length === classes.length) {
+        if (i === length) {
             classes.push(className);
         }
 

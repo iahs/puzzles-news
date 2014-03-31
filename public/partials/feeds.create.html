@@ -1,0 +1,19 @@
+<form ng-submit="createFeed()" class="pure-form pure-form-stacked">
+
+    <div class="error" ng-repeat="item in error">{{item}}</div>
+    <fieldset>
+        <legend>Add a new Rss Feed</legend>
+        <label for="title">Title</label>
+        <input ng-model="newFeed.title" id="title" type="text" required/>
+
+        <label for="body">Website</label>
+        <textarea ng-model="newFeed.website" id="body" required></textarea>
+
+        <label for="permalink">Permalink</label>
+        <textarea ng-model="newFeed.permalink" id="permalink" required></textarea>
+    </fieldset>
+
+    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+    <a ui-sref="feeds.list" class="pure-button">Cancel</a>
+
+</form>
