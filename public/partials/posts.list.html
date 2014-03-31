@@ -14,9 +14,9 @@
     </div>
     <div class="pure-u-2-3">
         <div class="padded">
-            <a ng-repeat="tag in tags | filter:tagSearch | limitTo:15" ng-click="addQueryTag(tag)" class="pure-button button-xsmall">
+            <a ng-repeat="tag in filtered = (tags | filter:tagSearch) | limitTo:15" ng-click="addQueryTag(tag)" class="pure-button button-xsmall">
                 {{ tag.name }}
-            </a>
+            </a> <span ng-show="filtered.length > 15"> ...and {{filtered.length - 15}} more</span>
         </div>
     </div>
 </div>

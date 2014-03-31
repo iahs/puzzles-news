@@ -10,13 +10,13 @@ angular.module('postCtrl', [])
         $scope.queryTags = [];
 
         $scope.addQueryTag = function (tag) {
-            var tag = $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
+            $scope.tags.splice($scope.tags.indexOf(tag),1)[0];
             $scope.queryTags.push(tag);
             $scope.search();
         };
 
         $scope.removeQueryTag = function (tag) {
-            var tag = $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
+            $scope.queryTags.splice($scope.queryTags.indexOf(tag),1)[0];
             $scope.tags.push(tag);
             $scope.search();
         };
@@ -147,6 +147,7 @@ angular.module('postCtrl', [])
         $scope.showTag = function(tag) {
             clearQuery();
             $scope.addQueryTag(tag);
+            console.log(tag);
         }
 
         // Clear query when user clicks "List posts" in menubar
