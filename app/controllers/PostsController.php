@@ -39,43 +39,6 @@ class PostsController extends BaseApiController
     }
 
     /**
-     * Store a oldly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        if (! $this->post->isValid($input = Input::json()->all()))
-        {
-            return Response::json([
-                'errors' => $this->post->errors->toArray(),
-                'message' => 'Validation failed'
-            ], 400);
-        }
-
-        // validation passed
-        $post = $this->post->create($input);
-        return Response::json([
-            'data' => $post->toArray()
-        ], 201);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int      $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        Post::destroy($id);
-
-        return Response::json([
-            'success' => true
-        ], 200);
-    }
-
-    /**
      * Take a fulltext query string and a list of tag ids from the user
      * and return a list of corresponding posts
      * Display a listing of post with id<requested
@@ -110,6 +73,9 @@ class PostsController extends BaseApiController
 
     }
 
+    /*
+     * Return a list of the most popular posts
+     */
     public function popular()
     {
         $postIds = $this->post->getPopular();
@@ -119,6 +85,9 @@ class PostsController extends BaseApiController
         ], 200);
     }
 
+    /*
+     * Increase the click count by 1 for a given post
+     */
     public function click()
     {
         $id = Input::get('id');
