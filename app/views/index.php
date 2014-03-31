@@ -42,34 +42,12 @@
             </div>
         </div>
 
-
         <div class="pure-g">
-            <div id="main" ui-view class="pure-u-3-4">
-
-            </div>
-
-            <div id="sidebar" ng-controller="TweetController" class="pure-u-1-4 pure-hidden-phone">
-
+            <div id="main" ui-view class="pure-u-4-5"></div>
+            <div id="sidebar" class="pure-u-1-5 pure-hidden-phone">
                 <div class="side-panel-twitter">
-
                     <a class="twitter-timeline" href="https://twitter.com/taylorswift13" data-widget-id="438017394917638144">Tweets by @taylorswift13</a>
-                    <script> 
-
-                        !function(d,s,id){
-                            var js,fjs=d.getElementsByTagName(s)[0];
-
-                            if(!d.getElementById(id)){
-                                js=d.createElement(s);js.id=id;
-                                js.src="https://platform.twitter.com/widgets.js";
-                                fjs.parentNode.insertBefore(js,fjs);
-                            }
-
-                            console.log("ran");
-
-                        }(document,"script","twitter-wjs"); 
-                    </script>
                 </div>
-
             </div>
         </div>
 
@@ -86,15 +64,12 @@
     <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
-    <script src="js/services/tweetService.js"></script>
     <script src="js/services/rssFeedService.js"></script>
-    <script src="js/controllers/twitter.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
-    <script src="js/controllers/tweetCtrl.js"></script>
     <script src="js/controllers/rssFeedCtrl.js"></script>
 
-
+    <script src="//platform.twitter.com/widgets.js"></script>
 </body>
 </html>
