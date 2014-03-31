@@ -9,7 +9,7 @@
     <div class="pure-u-1-3">
         <h3>Search for tags</h3>
         <form class="pure-form">
-            <input type="text" ng-model="tagSearch" placeholder="Search for tag">
+            <input type="text" ng-model="tagSearch" placeholder="Search for tag" class="clearable">
         </form>
     </div>
     <div class="pure-u-2-3">
@@ -22,7 +22,7 @@
 </div>
 
 <form ng-submit="search()" class="pure-form">
-    <input ng-model="search.query" class="pure-input-1" placeholder="Fulltext search"/>
+    <input ng-model="search.query" class="pure-input-1 clearable" placeholder="Fulltext search"/>
     <input type="submit" class="pure-button button-primary pure-u-1" value="Search"/>
 </form>
 

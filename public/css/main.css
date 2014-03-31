@@ -110,3 +110,19 @@ input.ng-invalid {
 input.ng-valid {
     border: 1px solid green;
 }
+
+.clearable{
+  background:url(http://i.imgur.com/z7ZSYjt.png) no-repeat right -10px center;
+  border:1px solid #999;
+  padding-right:18px; /* USE the same right padding in jQ! */
+  border-radius:3px;
+  transition: background 0.4s; /*Remove this line if issues in Chrome (02.2014)*/
+}
+/* (jQ addClass:) if input has value: */
+.clearable.x{
+  background-position: right 5px center;
+}
+/* (jQ addClass:) if mouse is over the 'x' input area*/
+.clearable.onX{
+  cursor:pointer;
+}
