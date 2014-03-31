@@ -26,8 +26,6 @@ Route::group(array('prefix'=> 'session'), function () {
     Route::get('/show', 'SessionsController@show');
     Route::get('/destroy', 'SessionsController@destroy');
     Route::post('/', 'SessionsController@store');
-    Route::post('/apilogin', 'SessionsController@apilogin');
-    Route::get('/apilogin', 'SessionsController@apilogin');
 });
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +36,6 @@ Route::group(array('prefix'=> 'session'), function () {
 |
 */
 Route::group(array('prefix' => 'api'), function () {
-    // Angular will handle create and edit
-    Route::resource('posts', 'PostsController',
-        array('only' => array('index', 'store', 'destroy'))
-    );
-
     Route::resource('rssfeeds', 'RssFeedsController',
         array('only' => array('index', 'store', 'destroy'))
     );
