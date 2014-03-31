@@ -98,7 +98,9 @@ class ImportRSS extends Command
                 return;
             $post = new Post(array(
                 'title' 	  => $item->get_title(),
-                'permalink'   => $item->get_permalink(),
+                // one of our lists adds a long query string to its URLs
+                // past the maximum allowed length
+                'permalink'   => preg_replace('#/\?.*#', '/', $item->get_permalink()),
                 'body'		  => strip_tags($item->get_content()),
                 'time_posted' => $item->get_gmdate('Y-m-d H:i:s'),
             ));
