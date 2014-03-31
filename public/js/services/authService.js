@@ -105,7 +105,7 @@ angular.module('authService', [])
 
             logout: function () {
                 $http.get(authUrl + "destroy")
-                    .success(function (responde) {
+                    .success(function (response) {
                         auth.user = null;
                         $rootScope.$broadcast('auth:logout', {})
                     });
