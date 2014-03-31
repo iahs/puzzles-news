@@ -6,9 +6,10 @@ class TagsController extends BaseApiController {
 
     protected $tagTransformer;
 
-    function __construct(TagTransformer $tagTransformer)
+    function __construct(TagTransformer $tagTransformer, Tag $tag)
     {
         $this->tagTransformer = $tagTransformer;
+        $this->tag = $tag;
     }
 
     /**
@@ -18,7 +19,7 @@ class TagsController extends BaseApiController {
 	 */
 	public function index()
 	{
-        $tags = Tag::all();
+        $tags = $this->tag->getAllWithPosts();
         return Response::json([
             'data' => $this->tagTransformer->transformCollection($tags->toArray())
         ], 200);
