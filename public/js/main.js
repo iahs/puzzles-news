@@ -6,9 +6,7 @@ var newsApp = angular.module('newsApp', [
     'rssFeedCtrl',
     'postService',
     'authService',
-    'tweetService',
     'rssFeedService',
-    'tweetCtrl',
     'newsAppFilters',
     'angularSlideables'
 ]);
