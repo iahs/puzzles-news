@@ -112,7 +112,7 @@ class ImportTweets extends Command
         }
 
         $this->info('Updating Twitter List ');
-        // $this->updateTwitterList($handles);
+        $this->updateTwitterList($handles);
 
         $this->info('Done importing tweets and updating list');
     }
