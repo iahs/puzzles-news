@@ -57,6 +57,8 @@ Route::group(array('prefix' => 'api'), function () {
     );
 
     Route::get('tweets', 'TweetsController@index');
+
+    Route::get('tweeters', 'TweetersController@index');
 });
 /*
 |--------------------------------------------------------------------------

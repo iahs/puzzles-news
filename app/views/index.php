@@ -60,8 +60,6 @@
                                 fjs.parentNode.insertBefore(js,fjs);
                             }
 
-                            console.log("ran");
-
                         }(document,"script","twitter-wjs"); 
                     </script>
                 </div>
@@ -75,18 +73,18 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
     <script src="js/main.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/angularSlideables.js"></script>
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/services/rssFeedService.js"></script>
+    <script src="js/services/tweeterService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
+    <script src="js/controllers/tweeterCtrl.js"></script>
     <script src="js/controllers/rssFeedCtrl.js"></script>
-
     <script src="//platform.twitter.com/widgets.js"></script>
 </body>
 </html>
