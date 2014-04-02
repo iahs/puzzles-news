@@ -74,7 +74,7 @@ class ImportTweets extends Command
                 else {
                     $postfield = $postfield.",".$name;
                 }
-                
+
             }
 
             $postfields = array("screen_name" => $postfield, "list_id" => $list_id);
@@ -82,7 +82,7 @@ class ImportTweets extends Command
             $twitter_post = new TwitterAPIExchange($settings);
             $list_response1 = json_decode($twitter_post->setPostfields($postfields)->buildOauth($url_post, $requestMethodPost)->performRequest(), $assoc = TRUE);
         }
-        
+
 
 
     }
@@ -97,7 +97,7 @@ class ImportTweets extends Command
 
         // grab each of the tweeter handles
         $handles = [];
-        
+
         foreach (Tweeter::all() as $tweeter) {
 
             if ($tweeter->handle) {
@@ -108,10 +108,10 @@ class ImportTweets extends Command
                 $this->info('Importing tweets from ' . $tweeter->handle);
                 $this->importTweet($tweeter);
             }
-            
+
         }
 
-        $this->info('Updating Twitter List ');
+        $this->info('Updating Twitter List');
         $this->updateTwitterList($handles);
 
         $this->info('Done importing tweets and updating list');
@@ -151,6 +151,7 @@ class ImportTweets extends Command
 
         foreach ($tweets as $tweet) {
 
+            // Remove non-printing characters used internally by Twitter
             $text = preg_replace('/[^\x20-\x7E]/', '', $tweet->get_text());
 
             // Enforce uniqueness and make sure the feed is valid
@@ -169,8 +170,6 @@ class ImportTweets extends Command
                 return;
             }
 
-            echo "got here1";
-
             $t = new Tweet(array(
                 'id'	=> $tweet->get_id(),
                 'text' 	=> $text,
@@ -184,18 +183,15 @@ class ImportTweets extends Command
 
             if ($tweet->get_tags()) {
                 foreach($tweet->tags as $tag) {
-
-                    print $tag->text;
                     $tag = Tag::firstOrCreate(array('name' => $tag->text));
                     $tag->tweets()->attach($tweet->get_id());
                     $tag->save();
-
                 }
             }
-            
+
         }
 
-        echo "Imported $tweeterCounter tweets\n";
+        $this->info("Imported $tweeterCounter tweets");
     }
 
 }
