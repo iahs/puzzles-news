@@ -52,7 +52,8 @@
 
                 <div class="side-panel-twitter">
 
-                    <a class="twitter-timeline" href="https://twitter.com/taylorswift13" data-widget-id="438017394917638144">Tweets by @taylorswift13</a>
+                <a class="twitter-timeline" href="https://twitter.com/PuzzlesNews/puzzlesnews" data-widget-id="451173644907974656">Loading Tweets About Harvard...</a>
+
                     <script> 
 
                         !function(d,s,id){
