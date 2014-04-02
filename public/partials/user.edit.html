@@ -12,6 +12,7 @@
 </form>
 
 <form ng-submit="updateProfile()" class="pure-form pure-form-aligned">
+    <div class="error" ng-repeat="item in error">{{item}}</div>
     <fieldset>
         <div class="pure-control-group">
             <label for="email">Email</label>
