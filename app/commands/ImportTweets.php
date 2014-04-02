@@ -112,7 +112,7 @@ class ImportTweets extends Command
         }
 
         $this->info('Updating Twitter List ');
-        $this->updateTwitterList($handles);
+        // $this->updateTwitterList($handles);
 
         $this->info('Done importing tweets and updating list');
     }
@@ -168,6 +168,8 @@ class ImportTweets extends Command
             if ($validator->fails()) {
                 return;
             }
+
+            echo "got here1";
 
             $t = new Tweet(array(
                 'id'	=> $tweet->get_id(),

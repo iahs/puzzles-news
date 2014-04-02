@@ -101,7 +101,8 @@
 			if($connection){
 				// Get the latest tweets from Twitter
  				$get_tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitter_user_id."&count=".$tweets_to_display."&include_rts=".$include_rts."&exclude_replies=".$ignore_replies);
-				
+			
+
 				// Error check: Make sure there is at least one item.
 				if (count($get_tweets)) {
  					
@@ -117,6 +118,10 @@
  
 					// Iterate over tweets.
 					foreach($get_tweets as $tweet) {
+
+						if (!is_object($tweet)) {
+							break;
+						}
 
 						$tweet_found = true;
 						$tweet_count++;
