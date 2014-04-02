@@ -111,7 +111,7 @@ class ImportTweets extends Command
 
         }
 
-        $this->info('Updating Twitter List');
+        $this->info('Updating tweeter list');
         $this->updateTwitterList($handles);
 
         $this->info('Done importing tweets and updating list');
@@ -173,7 +173,7 @@ class ImportTweets extends Command
             $t = new Tweet(array(
                 'id'	=> $tweet->get_id(),
                 'text' 	=> $text,
-                'tweet_time' => $tweet->get_time(),
+                'time_tweeted' => date('Y-m-d H:i:s', $tweet->get_time()),
             ));
 
             $t->tweeter()->associate($tweeter);
