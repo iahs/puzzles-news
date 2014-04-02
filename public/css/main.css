@@ -51,6 +51,12 @@ aside {
     text-align: center;
 }
 
+/****************
+ * For the twitter sidebar
+****************/
+iframe {
+    height: 100%;
+}
 
 /****************
  * Button styling
