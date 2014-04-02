@@ -77,11 +77,17 @@
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/services/rssFeedService.js"></script>
+<<<<<<< HEAD
     <script src="js/services/tweeterService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
     <script src="js/controllers/tweeterCtrl.js"></script>
+=======
+    <script src="js/controllers/postCtrl.js"></script>
+    <script src="js/controllers/userCtrl.js"></script>
+    <script src="js/controllers/menuCtrl.js"></script>
+>>>>>>> df07eb27062e8683701acc588ae02de13cfb7da9
     <script src="js/controllers/rssFeedCtrl.js"></script>
     <script src="//platform.twitter.com/widgets.js"></script>
 </body>

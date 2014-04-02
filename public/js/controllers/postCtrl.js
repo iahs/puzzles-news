@@ -143,11 +143,10 @@ angular.module('postCtrl', [])
             $scope.queryTags = [];
         }
 
-        // Show all possts with tag when user clicks on tag rectangle
+        // Show all posts with tag when user clicks on tag rectangle
         $scope.showTag = function(tag) {
             clearQuery();
             $scope.addQueryTag(tag);
-            console.log(tag);
         }
 
         // Clear query when user clicks "List posts" in menubar
