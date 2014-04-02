@@ -44,32 +44,6 @@ class UsersController extends BaseApiController {
         }
     }
 
-    public function updateOld()
-    {
-        $user_data = Input::json('data');
-        if( ! $user_data || ! array_key_exists('id', $user_data) || ! Auth::check()){
-            return Response::json([
-                'errors' => 'Invalid data or not authorized',
-                'message' => 'You are not allowed to perfom this operation'
-            ]);
-        }
-        $user = Auth::user();
-
-        if ($user->tweeter_id) {
-            $tweeter = Tweeter::find($user->tweeter_id);
-            $tweeter->handle = $user_data['handle'];
-            $tweeter->save();
-        }
-        else {
-            $tweeter = new Tweeter;
-            $tweeter->name = $user->last_name ? $user->first_name . ' ' . $user->last_name : $user->cs50fullname;
-            $tweeter->handle = $user_data['handle'];
-            $tweeter->save();
-            $user->tweeter_id = $tweeter->id;
-        }
-        $user->save();
-    }
-
     public function update()
     {
         // before_filter has already checked user is signed in

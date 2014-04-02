@@ -31,7 +31,7 @@
                 <li><a ui-sref="posts.list" ng-click="clearQuery()">List posts</a></li>
                 <li><a ui-sref="posts.popular">Popular posts</a></li>
                 <li ng-hide="auth.user"><a ui-sref="user.login">Login</a></li>
-                <li ng-show="auth.isEditor"><a ui-sref="feeds.list">Manage RSS</a></li>
+                <li ng-show="auth.user.isEditor"><a ui-sref="feeds.list">Manage RSS</a></li>
                 <li ng-show="auth.user"><a ui-sref="user.edit">Edit account</a></li>
                 <p ng-show="auth.user" style="text-align: center" class="ng-hide">
                     <img src="http://www.gravatar.com/avatar/{{ auth.user.gravatar }}" alt="Gravatar" title="Edit your profile picture at gravatar.com" />
@@ -47,7 +47,7 @@
             <div id="sidebar" class="pure-u-1-5 pure-hidden-phone">
                 <div class="side-panel-twitter" style="height:100%">
                 <a class="twitter-timeline" href="https://twitter.com/PuzzlesNews/puzzlesnews" data-widget-id="451173644907974656">Loading Tweets About Harvard...</a>
-                    <script> 
+                    <script>
 
                         !function(d,s,id){
                             var js,fjs=d.getElementsByTagName(s)[0];
@@ -58,7 +58,7 @@
                                 fjs.parentNode.insertBefore(js,fjs);
                             }
 
-                        }(document,"script","twitter-wjs"); 
+                        }(document,"script","twitter-wjs");
                     </script>
                 </div>
             </div>

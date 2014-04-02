@@ -45,8 +45,8 @@ angular.module('authService', [])
                 $http.get(authUrl + 'show').success(function (response) {
                     auth.user = response['data'];
 
-                    auth.isAdmin = auth.user['role'] > 2;
-                    auth.isEditor = auth.user['role'] > 1;
+                    auth.user.isAdmin = auth.user['role'] > 2;
+                    auth.user.isEditor = auth.user['role'] > 1;
 
                     deferred.resolve(auth);
                 });
