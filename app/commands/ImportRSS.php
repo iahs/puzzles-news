@@ -79,11 +79,15 @@ class ImportRSS extends Command
         $postCounter = 0;
 
         foreach ($feed->get_items() as $item) {
+            // one of our lists adds a long query string to its URLs
+            // past the maximum allowed length
+            $permalink = preg_replace('#/\?.*#', '/', $item->get_permalink());
+
             // Enforce uniqueness and make sure the feed is valid
             $validator = Validator::make(
                 array(
                     'title'		=> $item->get_title(),
-                    'permalink' => $item->get_permalink()
+                    'permalink' => $permalink
                 ),
                 array(
                     'title'		=> 'required',
@@ -98,9 +102,7 @@ class ImportRSS extends Command
                 return;
             $post = new Post(array(
                 'title' 	  => $item->get_title(),
-                // one of our lists adds a long query string to its URLs
-                // past the maximum allowed length
-                'permalink'   => preg_replace('#/\?.*#', '/', $item->get_permalink()),
+                'permalink'   => $permalink,
                 'body'		  => strip_tags($item->get_content()),
                 'time_posted' => $item->get_gmdate('Y-m-d H:i:s'),
             ));
@@ -120,7 +122,6 @@ class ImportRSS extends Command
             } else {
                 echo 'Error in the concept tagging call: ', $response['statusInfo'];
             }
-            //TODO: add other useful fields, like source, content, and date.
         }
         echo "Imported $postCounter posts\n";
     }
