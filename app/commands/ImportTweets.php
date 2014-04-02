@@ -2,9 +2,11 @@
 
 use Illuminate\Console\Command;
 include(app_path().'/libraries/tweets-importer/tweets.php');
+include(app_path().'/libraries/twitter-api-php/TwitterAPIExchange.php');
 
 class ImportTweets extends Command
 {
+
     /**
      * The console command name.
      *
@@ -30,17 +32,86 @@ class ImportTweets extends Command
     }
 
     /**
+     * Update twitter list with handles
+     *
+     * @return void
+     */
+    private function updateTwitterList($handles)
+    {
+
+        $settings = array (
+            'oauth_access_token' => "2370933025-2VtN7ByF4wK5cZqDRfiiVG41XcfqoDS4vW0wAnA",
+            'oauth_access_token_secret' => "MJVKlV8vI4hGV9SRB3uFRHLaLghAFSPByJvF6r8LfsD91",
+            'consumer_key' => "aPoDb60HjoSbhA6A0UaOnw",
+            'consumer_secret' => "wVCqksbciem5aauqF1dVtk7jp26rONcTbNPKO3v0"
+        );
+
+        $get_list_url = "https://api.twitter.com/1.1/lists/list.json";
+        $requestMethod = "GET";
+        $getfield = '?screen_name=PuzzlesNews';
+
+        $twitter = new TwitterAPIExchange($settings);
+        $list_response = json_decode($twitter->setGetfield($getfield)->buildOauth($get_list_url, $requestMethod)->performRequest(), $assoc = TRUE);
+
+        // get the list id to update
+        $list_1 = array_pop($list_response);
+        $list_id = $list_1["id_str"];
+
+        $url_post = "https://api.twitter.com/1.1/lists/members/create_all.json";
+        $requestMethodPost = "POST";
+        $postfield = "";
+
+        while (!empty($handles)) {
+
+            $postfield = "";
+
+            // get the first 100 names
+            for ($i = 0; $i < 100; ++$i) {
+                $name = array_pop($handles);
+                if ($i == 0) {
+                    $postfield = $name;
+                }
+                else {
+                    $postfield = $postfield.",".$name;
+                }
+                
+            }
+
+            $postfields = array("screen_name" => $postfield, "list_id" => $list_id);
+
+            $twitter_post = new TwitterAPIExchange($settings);
+            $list_response1 = json_decode($twitter_post->setPostfields($postfields)->buildOauth($url_post, $requestMethodPost)->performRequest(), $assoc = TRUE);
+        }
+        
+
+
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function fire()
     {
+
+        // grab each of the tweeter handles
+        $handles = [];
+        
         foreach (Tweeter::all() as $tweeter) {
+
+            // update the list with these tweeters
+            array_push($handles, $tweeter->handle);
+
+            // start importing
             $this->info('Importing tweets from ' . $tweeter->handle);
             $this->importTweet($tweeter);
         }
-        $this->info('Done importing tweets');
+
+        $this->info('Updating Twitter List ');
+        $this->updateTwitterList($handles);
+
+        $this->info('Done importing tweets and updating list');
     }
 
     /**
