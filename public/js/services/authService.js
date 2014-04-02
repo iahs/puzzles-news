@@ -82,6 +82,7 @@ angular.module('authService', [])
                     }
                 }).success(function(response) {
                     auth.user = response['data']; // Update the user data locally too
+                    $state.go('posts.list');
                 }).error(function (response) {
                     $rootScope.error = response['errors'];
                 });
@@ -105,7 +106,7 @@ angular.module('authService', [])
 
             logout: function () {
                 $http.get(authUrl + "destroy")
-                    .success(function (responde) {
+                    .success(function (response) {
                         auth.user = null;
                         $rootScope.$broadcast('auth:logout', {})
                     });

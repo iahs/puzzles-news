@@ -45,10 +45,8 @@
         <div class="pure-g">
             <div id="main" ui-view class="pure-u-4-5"></div>
             <div id="sidebar" class="pure-u-1-5 pure-hidden-phone">
-                <div class="side-panel-twitter">
-
+                <div class="side-panel-twitter" style="height:100%">
                 <a class="twitter-timeline" href="https://twitter.com/PuzzlesNews/puzzlesnews" data-widget-id="451173644907974656">Loading Tweets About Harvard...</a>
-
                     <script> 
 
                         !function(d,s,id){

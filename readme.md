@@ -8,7 +8,7 @@ Alex, Bowen, Martin, Shai
 ## Requirements
 - php 5.5
 - mcrypt for php
-- MySql >=5.6 (5.7 recommended. Our site requires upport for fulltext indexes on innodb databases. MariaDB does not support this yet)
+- MySql >=5.6 (We are using 5.7. The version requirement is because we use a recently added feature: fulltext indexes on innodb databases. MariaDB does not support this yet)
 
 ## Installation instructions
 
@@ -24,14 +24,15 @@ Alex, Bowen, Martin, Shai
   composer install
   ```
   
-- Create a database named news_puzzles, and give full access to user jharvard with password crimson
+- Create a new database table and give full rights to user jharvard with password crimson (or edit config/database.php to use custom settings)
+
 - Run all migrations
 
   ``` 
   php artisan migrate
   ```
   
-- Seed the database with an initial set tweeters and of RSS feeds (admin users can add more through the web interface)
+- Seed the database with an initial set of tweeters and of RSS feeds (admin users can add more through the web interface)
   
   ```
   php artisan db:seed
