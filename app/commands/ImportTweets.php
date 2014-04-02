@@ -74,7 +74,6 @@ class ImportTweets extends Command
                 else {
                     $postfield = $postfield.",".$name;
                 }
-
             }
 
             $postfields = array("screen_name" => $postfield, "list_id" => $list_id);
@@ -82,7 +81,6 @@ class ImportTweets extends Command
             $twitter_post = new TwitterAPIExchange($settings);
             $list_response1 = json_decode($twitter_post->setPostfields($postfields)->buildOauth($url_post, $requestMethodPost)->performRequest(), $assoc = TRUE);
         }
-
 
 
     }
@@ -97,7 +95,6 @@ class ImportTweets extends Command
 
         // grab each of the tweeter handles
         $handles = [];
-
         foreach (Tweeter::all() as $tweeter) {
 
             if ($tweeter->handle) {
@@ -113,7 +110,6 @@ class ImportTweets extends Command
 
         $this->info('Updating tweeter list');
         $this->updateTwitterList($handles);
-
         $this->info('Done importing tweets and updating list');
     }
 
