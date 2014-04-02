@@ -1,6 +1,6 @@
 # Harvard News Aggregator - Puzzles
 
-Harvard News website built on Laravel to create a web app that aggregates and personalizes Harvard-related news for its users.
+Harvard News website built on Laravel to create a web app that aggregates and personalizes Harvard-related news for its users. The website consists of 2 parts: a backend written in Laravel that import news and tweets from other sources and serve them as a json api, and a frontend client-application written in angular-js that consumes the api. 
 
 ## Group members
 Alex, Bowen, Martin, Shai  
