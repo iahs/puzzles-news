@@ -47,7 +47,7 @@
             <div id="sidebar" class="pure-u-1-5 pure-hidden-phone">
                 <div class="side-panel-twitter" style="height:100%">
                 <a class="twitter-timeline" href="https://twitter.com/PuzzlesNews/puzzlesnews" data-widget-id="451173644907974656">Loading Tweets About Harvard...</a>
-                    <script> 
+                    <script>
 
                         !function(d,s,id){
                             var js,fjs=d.getElementsByTagName(s)[0];
@@ -58,7 +58,7 @@
                                 fjs.parentNode.insertBefore(js,fjs);
                             }
 
-                        }(document,"script","twitter-wjs"); 
+                        }(document,"script","twitter-wjs");
                     </script>
                 </div>
             </div>
@@ -77,11 +77,9 @@
     <script src="js/services/postService.js"></script>
     <script src="js/services/authService.js"></script>
     <script src="js/services/rssFeedService.js"></script>
-    <script src="js/services/tweeterService.js"></script>
     <script src="js/controllers/postCtrl.js"></script>
     <script src="js/controllers/userCtrl.js"></script>
     <script src="js/controllers/menuCtrl.js"></script>
-    <script src="js/controllers/tweeterCtrl.js"></script>
     <script src="js/controllers/rssFeedCtrl.js"></script>
     <script src="//platform.twitter.com/widgets.js"></script>
 </body>
