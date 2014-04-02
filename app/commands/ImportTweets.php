@@ -100,12 +100,15 @@ class ImportTweets extends Command
         
         foreach (Tweeter::all() as $tweeter) {
 
-            // update the list with these tweeters
-            array_push($handles, $tweeter->handle);
+            if ($tweeter->handle) {
+                // update the list with these tweeters
+                array_push($handles, $tweeter->handle);
 
-            // start importing
-            $this->info('Importing tweets from ' . $tweeter->handle);
-            $this->importTweet($tweeter);
+                // start importing
+                $this->info('Importing tweets from ' . $tweeter->handle);
+                $this->importTweet($tweeter);
+            }
+            
         }
 
         $this->info('Updating Twitter List ');
